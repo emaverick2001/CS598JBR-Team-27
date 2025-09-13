@@ -1,0 +1,13 @@
+NetIDs ['mae10mns9snh6pranavn6'] with seed 270992647952172920073750662102343813773
+
+Downloading readme: 0.00B [00:00, ?B/s]
+Downloading readme: 6.52kB [00:00, 12.4MB/s]
+
+Downloading data:   0%|          | 0.00/83.9k [00:00<?, ?B/s]
+Downloading data: 100%|██████████| 83.9k/83.9k [00:00<00:00, 377kB/s]
+Downloading data: 100%|██████████| 83.9k/83.9k [00:00<00:00, 375kB/s]
+
+Generating test split:   0%|          | 0/164 [00:00<?, ? examples/s]
+Generating test split: 100%|██████████| 164/164 [00:00<00:00, 3755.83 examples/s]
+Entire Dataset saved to humaneval.jsonl
+Selected 20 problems saved to selected_humaneval_270992647952172920073750662102343813773.jsonl
