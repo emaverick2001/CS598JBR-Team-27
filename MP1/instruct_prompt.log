@@ -1,16 +1,16 @@
-2025-09-25 05:25:16.437295: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-09-25 21:05:28.243628: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-E0000 00:00:1758777916.458948   13739 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-E0000 00:00:1758777916.465533   13739 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-W0000 00:00:1758777916.489529   13739 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1758777916.489566   13739 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1758777916.489569   13739 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1758777916.489571   13739 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-2025-09-25 05:25:16.496788: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+E0000 00:00:1758834328.265581   25232 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1758834328.272223   25232 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1758834328.288607   25232 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1758834328.288629   25232 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1758834328.288637   25232 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1758834328.288639   25232 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2025-09-25 21:05:28.293720: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
 Working with deepseek-ai/deepseek-coder-6.7b-instruct quantization True...
-Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [05:44<05:44, 344.51s/it]Fetching 2 files: 100%|██████████| 2/2 [05:44<00:00, 172.25s/it]
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:53<00:53, 53.00s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:11<00:00, 32.42s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:11<00:00, 35.51s/it]
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [06:29<06:29, 390.00s/it]Fetching 2 files: 100%|██████████| 2/2 [06:29<00:00, 195.00s/it]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:51<00:51, 51.35s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:08<00:00, 31.42s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:08<00:00, 34.41s/it]
 The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
 The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
@@ -21,303 +21,780 @@ The following generation flags are not valid and may be ignored: ['temperature']
 Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
 The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-Task_ID HumanEval/63:
+Task_ID HumanEval/95:
 Prompt:
 
-
-def fibfib(n: int):
-    """The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
-    fibfib(0) == 0
-    fibfib(1) == 0
-    fibfib(2) == 1
-    fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
-    Please write a function to efficiently compute the n-th element of the fibfib number sequence.
-    >>> fibfib(1)
-    0
-    >>> fibfib(5)
-    4
-    >>> fibfib(8)
-    24
+def check_dict_case(dict):
+    """
+    Given a dictionary, return True if all keys are strings in lower 
+    case or all keys are strings in upper case, else return False.
+    The function should return False is the given dictionary is empty.
+    Examples:
+    check_dict_case({"a":"apple", "b":"banana"}) should return True.
+    check_dict_case({"a":"apple", "A":"banana", "B":"banana"}) should return False.
+    check_dict_case({"a":"apple", 8:"banana", "a":"apple"}) should return False.
+    check_dict_case({"Name":"John", "Age":"36", "City":"Houston"}) should return False.
+    check_dict_case({"STATE":"NC", "ZIP":"12345" }) should return True.
     """
 
 Response:
 
-
-def fibfib(n: int):
-    """The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
-    fibfib(0) == 0
-    fibfib(1) == 0
-    fibfib(2) == 1
-    fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
-    Please write a function to efficiently compute the n-th element of the fibfib number sequence.
-    >>> fibfib(1)
-    0
-    >>> fibfib(5)
-    4
-    >>> fibfib(8)
-    24
+def check_dict_case(dict):
     """
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 0
-    elif n == 2:
-        return 1
-    else:
-        a, b, c = 0, 0, 1
-        for _ in range(n - ):
-            a, b, c = b, c, a + b + c
-        return c
+    Given a dictionary, return True if all keys are strings in lower 
+    case or all keys are strings in upper case, else return False.
+    The function should return False is the given dictionary is empty.
+    Examples:
+    check_dict_case({"a":"apple", "b":"banana"}) should return True.
+    check_dict_case({"a":"apple", "A":"banana", "B":"banana"}) should return False.
+    check_dict_case({"a":"apple", 8:"banana", "a":"apple"}) should return False.
+    check_dict_case({"Name":"John", "Age":"36", "City":"Houston"}) should return False.
+    check_dict_case({"STATE":"NC", "ZIP":"12345" }) should return True.
+    """
+    if not dict:
+        return False
+    lower_case = [k.islower() for k in dict.keys()]
+    upper_case = [k.isupper() for k in dict.keys()]
+    return all(lower_case) or all(upper_case)
+
+# Test cases
+print(check_dict_case({"a":"apple", "b":"banana"})) # True
+print(check_dict_case({"a":"apple", "A":"banana", "B":"banana"})) # False
+print(check_dict_case({"a":"apple", 8:"banana", "a":"apple"})) # False
+print(check_dict_case({"Name":"John", "Age":"36", "City":"Houston"})) # False
+print(check_dict_case({"STATE":"NC", "ZIP":"12345" })) # True
+print(check_dict_case({})) # False
+
+# Note: The function is case sensitive. It will return False if the dictionary has keys that are in different cases.
+# For example, {"Name":"John", "name":"John"} will return False.
+# The function assumes that the dictionary keys are strings. If the dictionary keys are not strings, it
+Task_ID HumanEval/76:
+Prompt:
+
+def is_simple_power(x, n):
+    """Your task is to write a function that returns true if a number x is a simple
+    power of n and false in other cases.
+    x is a simple power of n if n**int=x
+    For example:
+    is_simple_power(1, 4) => true
+    is_simple_power(2, 2) => true
+    is_simple_power(8, 2) => true
+    is_simple_power(3, 2) => false
+    is_simple_power(3, 1) => false
+    is_simple_power(5, 3) => false
+    """
+
+Response:
+
+def is_simple_power(x, n):
+    """Your task is to write a function that returns true if a number x is a simple
+    power of n and false in other cases.
+    x is a simple power of n if n**int=x
+    For example:
+    is_simple_power(1, 4) => true
+    is_simple_power(2, 2) => true
+    is_simple_power(8, 2) => true
+    is_simple_power(3, 2) => false
+    is_simple_power(3, 1) => false
+    is_simple_power(5, 3) => false
+    """
+    if x == 1:
+        return True
+    if n == 1:
+        return False
+    while x > 1:
+        if x % n != 0:
+            return False
+        x = x / n
+    return True
+
+
+print(is_simple_power(1, 4))  # => true
+print(is_simple_power(2, 2))  # => true
+print(issimple_power(8, 2))  # => true
+print(is_simple_power(3, 2))  # => false
+print(is_simple_power(3, 1))  # => false
+print(is_simple_power(5, 3))  # => false
+print(is_simple_power(64, 2))  # => true
+print(is_simple_power(729, 3))  # => true
+print(is_simple_power(1024, 2))  # => true
+print(is_simple_power(1594323, 3))  # => true
+print(is_simple_power(248832, 2))  # => true
+print(is_simple_power(12906496, 2))  # => true
+print(is_simple_power(12906496, 3))  # => false
+print(is_simple_power(12906496, 4)) 
+Task_ID HumanEval/119:
+Prompt:
+
+def match_parens(lst):
+    '''
+    You are given a list of two strings, both strings consist of open
+    parentheses '(' or close parentheses ')' only.
+    Your job is to check if it is possible to concatenate the two strings in
+    some order, that the resulting string will be good.
+    A string S is considered to be good if and only if all parentheses in S
+    are balanced. For example: the string '(())()' is good, while the string
+    '())' is not.
+    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+
+    Examples:
+    match_parens(['()(', ')']) == 'Yes'
+    match_parens([')', ')']) == 'No'
+    '''
+
+Response:
+
+def match_parens(lst):
+    '''
+    You are given a list of two strings, both strings consist of open
+    parentheses '(' or close parentheses ')' only.
+    Your job is to check if it is possible to concatenate the two strings in
+    some order, that the resulting string will be good.
+    A string S is considered to be good if and only if all parentheses in S
+    are balanced. For example: the string '(())()' is good, while the string
+    '())' is not.
+    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+
+    Examples:
+    match_parens(['()(', ')']) == 'Yes'
+    match_parens([')', ')']) == 'No'
+    '''
+    s1, s2 = lst
+    s = s1 + s2
+    stack = []
+    for p in s:
+        if p == '(':
+            stack.append(p)
+        elif p == ')' and stack:
+            stack.pop()
+        else:
+            return 'No'
+    return 'Yes' if not stack else 'No'
+
+
+print(match_parens(['()(', ')']))  # 'Yes'
+print(match([')', ')']))  # 'No'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', '(']))  # 'No'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']))  # 'Yes'
+print(match_parens(['(', ')']
+Task_ID HumanEval/145:
+Prompt:
+
+def order_by_points(nums):
+    """
+    Write a function which sorts the given list of integers
+    in ascending order according to the sum of their digits.
+    Note: if there are several items with similar sum of their digits,
+    order them based on their index in original list.
+
+    For example:
+    >>> order_by_points([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+    >>> order_by_points([]) == []
+    """
+
+Response:
+
+def order_by_points(nums):
+    """
+    Write a function which sorts the given list of integers
+    in ascending order according to the sum of their digits.
+    Note: if there are several items with similar sum of their digits,
+    order them based on their index in original list.
+
+    For example:
+    >>> order_by_points([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+    >>> order_by_points([]) == []
+    """
+    def sum_of_digits(n):
+        return sum(int(i) for i in str(abs(n)))
+
+    return sorted(nums, key=lambda n: (sum_of_digits(n), nums.index(n)))
 
 
 if __name__ == "__main__":
     import doctest
-
     doctest.testmod()
 
-#tests/test_fibfib.py
-import pytest
-from fibfib import fibfib
+#tests/test_order_by_points.py
+import unittest
+from order_by_points import order_by_points
 
 
-@pytest.mark.parametrize("n, expected", [
-    (0, 0),
-    (1, 0),
-    (2, 1),
-    (3, 1),
-    (4, 2),
-    (5, 4),
-    (6, 8),
-    (7, 16),
-    (8, 24),
-    (9, 40),
-    (10, 68),
-])
-def test_fibfib(n, expected):
-    assert fibfib(n) == expected#src/config.py
-import os
+class TestOrderByPoints(unittest.TestCase):
 
-class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE
-Task_ID HumanEval/48:
+    def test_order_by_points(self):
+        self.assertEqual(order_by_points([1, 11, -1, -11, -12]), [-1, -11, 1, -12, 11])
+        self.assertEqual(order_by_points([]), [])
+        self.assertEqual(order.order_by_points([15, 21, 11, 7]), [7, 15, 21, 11])
+        self.assertEqual(order_by_points([15, 21, 11, 7]), [7, 15, 21, 11])
+        self.assertEqual(order_by_points([15, 21, 11, 7]), [7, 15, 21, 11])
+        self.assertEqual(order_by_points([15, 21,
+Task_ID HumanEval/142:
 Prompt:
 
 
-def is_palindrome(text: str):
-    """
-    Checks if given string is a palindrome
-    >>> is_palindrome('')
-    True
-    >>> is_palindrome('aba')
-    True
-    >>> is_palindrome('aaaaa')
-    True
-    >>> is_palindrome('zbcd')
-    False
+
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
     """
 
 Response:
 
 
-def is_palindrome(text: str):
+
+def sum_squares(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
     """
-    Checks if given string is a palindrome
-    >>> is_palindrome('')
-    True
-    >>> is_palindrome('aba')
-    True
-    >>> is_palindrome('aaaaa')
-    True
-    >>> is_palindrome('zbcd')
-    False
+    sum = 0
+    for i in range(len(lst)):
+        if i % 3 == 0:
+            sum += lst[i]**2
+        elif i % 4 == 0:
+            sum += lst[i]**3
+        else:
+            sum += lst[i]
+    return sum
+
+
+
+def sum_squares_v2(lst):
+    """"
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
     """
-    return text == text[::-1]
+    sum = 0
+    for i in range(len(lst)):
+        if i % 3 == 0:
+            sum += lst[i]**2
+        elif i % 4 == 0:
+           The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+
+Task_ID HumanEval/109:
+Prompt:
+
+def move_one_ball(arr):
+    """We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The
+    numbers in the array will be randomly ordered. Your task is to determine if
+    it is possible to get an array sorted in non-decreasing order by performing 
+    the following operation on the given array:
+        You are allowed to perform right shift operation any number of times.
+    
+    One right shift operation means shifting all elements of the array by one
+    position in the right direction. The last element of the array will be moved to
+    the starting position in the array i.e. 0th index. 
+
+    If it is possible to obtain the sorted array by performing the above operation
+    then return True else return False.
+    If the given array is empty then return True.
+
+    Note: The given list is guaranteed to have unique elements.
+
+    For Example:
+    
+    move_one_ball([3, 4, 5, 1, 2])==>True
+    Explanation: By performin 2 right shift operations, non-decreasing order can
+                 be achieved for the given array.
+    move_one_ball([3, 5, 4, 1, 2])==>False
+    Explanation:It is not possible to get non-decreasing order for the given
+                array by performing any number of right shift operations.
+                
+    """
+
+Response:
+
+def move_one_ball(arr):
+    """We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The
+    numbers in the array will be randomly ordered. Your task is to determine if
+    it is possible to get an array sorted in non-decreasing order by performing 
+    the following operation on the given array:
+        You are allowed to perform right shift operation any number of times.
+    
+    One right shift operation means shifting all elements of the array by one
+    position in the right direction. The last element of the array will be moved to
+    the starting position in the array i.e. 0th index. 
+
+    If it is possible to obtain the sorted array by performing the above operation
+    then return True else return False.
+    If the given array is empty then return True.
+
+    Note: The given list is guaranteed to have unique elements.
+
+    For Example:
+    
+    move_one_ball([3, 4, 5, 1, 2])==>True
+    Explanation: By performin 2 right shift operations, non-decreasing order can
+                 be achieved for the given array.
+    move_one_ball([3, 5, 4, 1, 2])==>False
+    Explanation:It is not possible to get non-decreasing order for the given
+                array by performing any number of right shift operations.
+                
+    """
+    # Write your code here
+    if len(arr) == 0:
+        return True
+    else:
+        for i in range(len(arr)):
+            if arr == sorted(arr[i:]+arr[:i]):
+                return True
+        return False
+
+print(move_one_ball([3, 4, 5, 1, 2]))
+print(move_one_ball([3, 5, 4, 1, 2]))
+
+# 1st test case: True
+# 2nd test case: False
+
+# The time complexity of this solution is O(n^2) as we are using a nested loop.
+# The space complexity is O(n) as we are
+Task_ID HumanEval/39:
+Prompt:
+
+
+def prime_fib(n: int):
+    """
+    prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+    >>> prime_fib(1)
+    2
+    >>> prime_fib(2)
+    3
+    >>> prime_fib(3)
+    5
+    >>> prime_fib(4)
+    13
+    >>> prime_fib(5)
+    89
+    """
+
+Response:
+
+
+def prime_fib(n: int):
+    """
+    prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+    >>> prime_fib(1)
+    2
+    >>> prime_fib(2)
+    3
+    >>> prime_fib(3)
+    5
+    >>> prime_fib(4)
+    13
+    >>> prime_fib(5)
+    89
+    """
+    if n < 1:
+        raise ValueError("n must be greater than 0")
+
+    primes = []
+    fibs = [0, 1]
+    i = 2
+    while len(primes) < n:
+        fibs.append(fibs[-1] + fibs[-2])
+        if is_prime(fibs[-1]):
+            primes.append(fibs[-1])
+        i += 1
+
+    return primes[-1]
 
 
 def is_prime(n: int):
     """
-    Checks if given number is a prime
-    >>> is_prime(2)
-    True
-    >>> is_prime(4)
-    False
-    >>> is_prime(13)
-    True
-    >>> is_prime(1)
-    False
+    is_prime checks if n is a prime number.
     """
     if n < 2:
         return False
-    for i in range(2, int(n ** rt(n)) + 1):
+    for i in range(2, int(n**0.5) + 1):
         if n % i == 0:
             return False
     return True
 
 
-def is_even(n: int):
-    """
-    Checks if given number is even
-    >>> is_even(0)
-    True
-    >>> is_even(3)
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+
+#tests/test_prime_fib.py
+import unittest
+from prime_fib import prime_fib
+
+
+class TestPrimeFib(unittest.TestCase):
+
+    def test_prime_fib(self):
+        self.assertEqual(prime_fib(1), 2)
+        self.assertEqual(prime_fib(2), 3)
+        self.assertEqual(prime_fib(3), 5)
+        self.assertEqual(prime_fib(4), 13)
+        self.assertEqual(prime_fib(5), 89)
+        self.assertEqual(prime_fib(6), 233)
+        self.assertEqual(prime
+Task_ID HumanEval/3:
+Prompt:
+from typing import List
+
+
+def below_zero(operations: List[int]) -> bool:
+    """ You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
     False
-    >>> is_even(4)
+    >>> below_zero([1, 2, -4, 5])
     True
     """
-    return n % 2 == 0
+
+Response:
+from typing import List
 
 
-def is_odd(n: int):
-    """
-    Checks if given number is odd
-    >>> is_odd(1)
-    True
-    >>> is_odd(2)
+def below_zero(operations: List[int]) -> bool:
+    """ You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
     False
-    >>> is_odd(3)
+    >>> below_zero([1, 2, -4, 5])
     True
     """
-    return n % 2 != 0
+    balance = 0
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
+    return False
 
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 
-def is_leap_year(year: int):
-    """
-    Checks if given year is a leap year
-    >>> is_leap_year(2000)
-    True
-    >>> is_leap_year(1900)
-    False
-    >>> is_leap_year(2004)
-    True
-    """
-    if year % 4 != 0:
-        return False
-    elif year % 100 != 0:
-        return True
-    elif year % 40
-Task_ID HumanEval/42:
+    print(below_zero([1, 2, 3]))  # False
+    print(below_zero([1, 2, -4, 5]))  # True
+    print(below_zero([1, 2, 3, -5]))  # False
+    print(below_zero([100, -100, -200]))  # True
+    print(below_zero([-1, 1, -2, 2]))  # True
+    print(below_zero([10, -10, 10, -10]))  # False
+    print(below_zero([1, 2, 3, 4, 5]))  # False
+    print(below_zero([-1, -2, -3, -4, -5]))  # False
+    print(below_zero([100, 100, -200, -200]))  # False
+    print(below_zero([1, -1, 1, -1]))  # False
+    print(below_zero([10, 20, -30, 40]))  # False
+    print(below_zero([1, 2, 3, -5, 4]))  # True
+    print(below_zero([100, 200, -30
+Task_ID HumanEval/112:
 Prompt:
 
-
-def incr_list(l: list):
-    """Return list with elements incremented by 1.
-    >>> incr_list([1, 2, 3])
-    [2, 3, 4]
-    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
-    [6, 4, 6, 3, 4, 4, 10, 1, 124]
+def reverse_delete(s,c):
+    """Task
+    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+    then check if the result string is palindrome.
+    A string is called palindrome if it reads the same backward as forward.
+    You should return a tuple containing the result string and True/False for the check.
+    Example
+    For s = "abcde", c = "ae", the result should be ('bcd',False)
+    For s = "abcdef", c = "b"  the result should be ('acdef',False)
+    For s = "abcdedcba", c = "ab", the result should be ('cdedc',True)
     """
 
 Response:
 
-
-def incr_list(l: list):
-    """Return list with elements incremented by 1.
-    >>> incr_list([1, 2, 3])
-    [2, 3, 4]
-    >>> incr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
-    [6, 4, 6, 3, 4, 4, 10, 1, 124]
+def reverse_delete(s,c):
+    """Task
+    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+    then check if the result string is palindrome.
+    A string is called palindrome if it reads the same backward as forward.
+    You should return a tuple containing the result string and True/False for the check.
+    Example
+    For s = "abcde", c = "ae", the result should be ('bcd',False)
+    For s = "abcdef", c = "b"  the result should be ('acdef',False)
+    For s = "abcdedcba", c = "ab", the result should be ('cdedc',True)
     """
-    return [i + 1 for i in l]
+    for i in c:
+        s = s.replace(i, '')
+    return (s, s == s[::-1])
 
+print(reverse_delete("abcde", "ae"))
+print(reverse_delete("abcdef", "b"))
+print(reverse("abcdedcba", "ab"))
 
-def decr_list(l: list):
-    """Return list with elements decremented by 1.
-    >>> decrlist([1, 2, 3])
-    [0, 1, 2]
-    >>> decr_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
-    [4, 2, 4, 1, 2, 2, 8, -1, 122]
-    """
-    return [i - 1 for i in l]
+# 1. Replace all characters in s that are in c with nothing.
+# 2. Check if the result string is the same as its reverse.
+# 3. Return the result string and the check result.
 
+# The time complexity of this solution is O(n^2) because of the replace operation.
+# The space complexity is O(n) because we are storing the result string.
 
-def sum_list(l: list):
-    """Return sum of elements in list.
-    >>> sum_list([1, 2, 3])
-    6
-    >>> sum_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
-    160
-    """
-    return sum(l)
+# The replace operation is O(n^2) because it has to go through the string for each character in c.
+# The check for palindrome is O(n) because it has to go through the string once.
+# So, the total time complexity is O(n^2).
 
+# The space complexity is O(n) because we are storing the result string.
+# So, the total space complexity is O(n).
 
-def avg_list(l: list):
-    """Return average of elements in list.
-    >>> avg_list([1, 2, 3])
-    2.0
-    >>> avg_list([5, 3, 5, 2, 3, 3, 9, 0, 123])
-    20.0
-    """
-    return sum(l) / len(l)
+# The time complexity of this solution is O(n^2) because of the replace operation.
+# The space complexity is O(n) because we are storing the result string.
 
+# The replace operation is O(n^2) because it has to go throughThe following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
 
-def min_list(l: list):
-    """Return minimum element in list.
-    >>> min_list([1, 2, 3])
-Task_ID HumanEval/9:
+Task_ID HumanEval/97:
 Prompt:
-from typing import List, Tuple
 
-
-def rolling_max(numbers: List[int]) -> List[int]:
-    """ From a given list of integers, generate a list of rolling maximum element found until given moment
-    in the sequence.
-    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
-    [1, 2, 3, 3, 3, 4, 4]
+def multiply(a, b):
+    """Complete the function that takes two integers and returns 
+    the product of their unit digits.
+    Assume the input is always valid.
+    Examples:
+    multiply(148, 412) should return 16.
+    multiply(19, 28) should return 72.
+    multiply(2020, 1851) should return 0.
+    multiply(14,-15) should return 20.
     """
 
 Response:
-from typing import List, Tuple
 
-
-def rolling_max(numbers: List[int]) -> List[int]:
-    """ From a given list of integers, generate a list of rolling maximum element found until given moment
-    in the sequence.
-    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
-    [1, 2, 3, 3, 3, 4, 4]
+def multiply(a, b):
+    """Complete the function that takes two integers and returns 
+    the product of their unit digits.
+    Assume the input is always valid.
+    Examples:
+    multiply(148, 412) should return 16.
+    multiply(19, 28) should return 72.
+    multiply(2020, 1851) should return 0.
+    multiply(14,-15) should return 20.
     """
-    max_num = numbers[0]
-    max_list = [max_num]
-    for num in numbers[1:]:
-        if num > max_num:
-            max_num = num
-        max_list.append(max_num)
-    return max_list
+    # Your code here
+    unit_digit_a = abs(a) % 10
+    unit_digit_b = abs(b) % 10
+    return unit_digit_a * unit_digit_b
 
-def rolling_min(numbers: List[int]) -> List[int]:
-    """ From a given list of integers, generate a list of rolling minimum element found until given moment
-    in the sequence.
-    >>> rolling_min([1, 2, 3, 2, 3, 4, 2])
-    [1, 1, 1, 1, 1, 1, 1]
+
+print(multiply(148, 412))  # should return 16
+print(multiply(19, 28))  # should return 72
+print(multiply(2020, 1851))  # should return 0
+print(multiply(14, -15))  # should return 20
+
+
+def multiply(a, b):
+    """Complete the function that takes two integers and returns 
+    the product of their unit digits.
+    Assume the input is always valid.
+    Examples:
+    multiply(148, 412) should return 16.
+    multiply(19, 28) should return 72.
+    multiply(2020, 1851) should return 0.
+    multiply(14,-15) should return 20.
     """
-    min_num = numbers[0]
-    min_list = [min_num]
-    for num in numbers[1:]:
-        if num < min_num:
-            min_num = num
-        min_list.append(min_num)
-    return min_list
+    # Your code here
+    unit_digit_a = abs(a) % 10
+    unit_digit_b = abs(b) % 10
+    return unit_digit_a * unit_digit_b
 
-def max_profit(prices: List[int]) -> int:
-    """ Given a list of stock prices, find the maximum profit that can be achieved by buying and selling
-    the stock at most once.
-    >>> max_profit([7, 1, 5, 3, 6, 4])
-    5
+
+print(multiply(148, 412))  # should return 16
+print(multiply(19, 28))  # should return 7
+Task_ID HumanEval/152:
+Prompt:
+
+def compare(game,guess):
+    """I think we all remember that feeling when the result of some long-awaited
+    event is finally known. The feelings and thoughts you have at that moment are
+    definitely worth noting down and comparing.
+    Your task is to determine if a person correctly guessed the results of a number of matches.
+    You are given two arrays of scores and guesses of equal length, where each index shows a match. 
+    Return an array of the same length denoting how far off each guess was. If they have guessed correctly,
+    the value is 0, and if not, the value is the absolute difference between the guess and the score.
+    
+    
+    example:
+
+    compare([1,2,3,4,5,1],[1,2,3,4,2,-2]) -> [0,0,0,0,3,3]
+    compare([0,5,0,0,0,4],[4,1,1,0,0,-2]) -> [4,4,1,0,0,6]
     """
-    if not prices:
-        return 0
-    min_price = prices[0]
-    max_profit = 0
-    for price in prices:
-        if price < min_price:
-            min_price = price
-        elif price - min_price > max_profit:
-            max_profit = price - min_price
-    return max_profit
+
+Response:
+
+def compare(game,guess):
+    """I think we all remember that feeling when the result of some long-awaited
+    event is finally known. The feelings and thoughts you have at that moment are
+    definitely worth noting down and comparing.
+    Your task is to determine if a person correctly guessed the results of a number of matches.
+    You are given two arrays of scores and guesses of equal length, where each index shows a match. 
+    Return an array of the same length denoting how far off each guess was. If they have guessed correctly,
+    the value is 0, and if not, the value is the absolute difference between the guess and the score.
+    
+    
+    example:
+
+    compare([1,2,3,4,5,1],[1,2,3,4,2,-2]) -> [0,0,0,0,3,3]
+    compare([0,5,0,0,0,4],[4,1,1,0,0,-2]) -> [4,4,1,0,0,6]
+    """
+    return [abs(s-g) if s != g else 0 for s, g in zip(game, guess)]
+
+print(compare([1,2,3,4,5,1],[1,2,3,4,2,-2]))
+print(compare([0,5,0,0,0,4],[4,1,1,0,0,-2]))
+
+# 1st solution
+def compare(game, guess):
+    return [abs(a-b) if a != b else 0 for a, b in zip(game, guess)]
+
+# 2nd solution
+def compare(game, guess):
+    return [abs(a-b) if a != b else 0 for a, b in zip(game, guess)]
+
+# 3rd solution
+def compare(game, guess):
+    return [abs(a-b) if a != b else 0 for a, b in zip(game, guess)]
+
+# 4th solution
+def compare(game, guess):
+    return [abs(a-b) if a !
+Task_ID HumanEval/78:
+Prompt:
+
+def hex_key(num):
+    """You have been tasked to write a function that receives 
+    a hexadecimal number as a string and counts the number of hexadecimal 
+    digits that are primes (prime number, or a prime, is a natural number 
+    greater than 1 that is not a product of two smaller natural numbers).
+    Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.
+    Prime numbers are 2, 3, 5, 7, 11, 13, 17,...
+    So you have to determine a number of the following digits: 2, 3, 5, 7, 
+    B (=decimal 11), D (=decimal 13).
+    Note: you may assume the input is always correct or empty string, 
+    and symbols A,B,C,D,E,F are always uppercase.
+    Examples:
+    For num = "AB" the output should be 1.
+    For num = "1077E" the output should be 2.
+    For num = "ABED1A33" the output should be 4.
+    For num = "123456789ABCDEF0" the output should be 6.
+    For num = "2020" the output should be 2.
+    """
+
+Response:
+
+def hex_key(num):
+    """You have been tasked to write a function that receives 
+    a hexadecimal number as a string and counts the number of hexadecimal 
+    digits that are primes (prime number, or a prime, is a natural number 
+    greater than 1 that is not a product of two smaller natural numbers).
+    Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.
+    Prime numbers are 2, 3, 5, 7, 11, 13, 17,...
+    So you have to determine a number of the following digits: 2, 3, 5, 7, 
+    B (=decimal 11), D (=decimal 13).
+    Note: you may assume the input is always correct or empty string, 
+    and symbols A,B,C,D,E,F are always uppercase.
+    Examples:
+    For num = "AB" the output should be 1.
+    For num = "1077E" the output should be 2.
+    For num = "ABED1A33" the output should be 4.
+    For num = "123456789ABCDEF0" the output should be 6.
+    For num = "2020" the output should be 2.
+    """
+    hex_num = [int(num, 16)]
+    prime_hex = [2, 3, 5, 7, 11, 13]
+    count = 0
+    for i in hex_num:
+        while i:
+            if i % 16 in prime_hex:
+                count += 1
+            i //= 16
+    return count
+
+print(hex_key("AB")) # 1
+print(hex_key("1077E")) # 2
+print(hex_key("ABED1A33")) # 4
+print(hex.hex_key("
+Task_ID HumanEval/4:
+Prompt:
+from typing import List
 
 
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """ For a given list of input numbers, calculate Mean Absolute Deviation
+    around the mean of this dataset.
+    Mean Absolute Deviation is the average absolute difference between each
+    element and a centerpoint (mean in this case):
+    MAD = average | x - x_mean |
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+
+Response:
+from typing import List
+
+
+def mean_absolute_deviation(numbers: List[float]) -> float:
+    """ For a given list of input numbers, calculate Mean Absolute Deviation
+    around the mean of this dataset.
+    Mean Absolute Deviation is the average absolute difference between each
+    element and a centerpoint (mean in this case):
+    MAD = average | x - x_mean |
+    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])
+    1.0
+    """
+    mean = sum(numbers) / len(numbers)
+    return sum(abs(num - mean) for num in numbers) / len(numbers)
+
+
+def mean_absolute_percentage_error(y_true: List[float], y_pred: List[float]) -> float:
+    """ For a given list of true values and predicted values, calculate Mean Absolute Percentage Error.
+    Mean Absolute Percentage Error is the average of the absolute percentage difference between the
+    predicted and actual values:
+    MAPE = [sum(|(y_true - y_pred) / y_true|) for y_true, y_pred in zip(y_true, y_pred)]
+    >>> mean_absolute_percentage_error([1.0, 2.0, 3.0, 4.0], [1.1, 1.9, 3.2, 3.8])
+    0.16666666666666666
+    """
+    return sum(abs((y_true - y_pred) / y_true) for y_true, y_pred in zip(y_true, y_pred)) / len(y_true)
+
+
+def mean_squared_error(y_true: List[float], y_pred: List[float]) - float:
+    """ For a given list of true values and predicted values, calculate Mean Squared Error.
+    Mean Squared Error is the average of the squares of the errors:
+    MSE = [(
 Task_ID HumanEval/36:
 Prompt:
 
@@ -386,991 +863,390 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'post', 'created', 'active']
-    list_filter = ['active', 'created
-Task_ID HumanEval/24:
+    list_filter = ['active', 'createdThe following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+
+Task_ID HumanEval/84:
 Prompt:
 
-
-def largest_divisor(n: int) -> int:
-    """ For a given number n, find the largest number that divides n evenly, smaller than n
-    >>> largest_divisor(15)
-    5
+def solve(N):
+    """Given a positive integer N, return the total sum of its digits in binary.
+    
+    Example
+        For N = 1000, the sum of digits will be 1 the output should be "1".
+        For N = 150, the sum of digits will be 6 the output should be "110".
+        For N = 147, the sum of digits will be 12 the output should be "1100".
+    
+    Variables:
+        @N integer
+             Constraints: 0 ≤ N ≤ 10000.
+    Output:
+         a string of binary number
     """
 
 Response:
 
-
-def largest_divisor(n: int) -> int:
-    """ For a given number n, find the largest number that divides n evenly, smaller than n
-    >>> largest_divisor(15)
-    5
+def solve(N):
+    """Given a positive integer N, return the total sum of its digits in binary.
+    
+    Example
+        For N = 1000, the sum of digits will be 1 the output should be "1".
+        For N = 150, the sum of digits will be 6 the output should be "110".
+        For N = 147, the sum of digits will be 12 the output should be "1100".
+    
+    Variables:
+        @N integer
+             Constraints: 0 ≤ N ≤ 10000.
+    Output:
+         a string of binary number
     """
-    i = n - 1
-    while i > 0:
-        if n % i == 0:
-            return i
-        i -= 1
+    # convert the number to binary and remove the '0b' part
+    binary = bin(N)[2:]
+    # sum the digits
+    total = sum(int(digit) for digit in binary)
+    # convert the sum to binary and remove the '0b' part
+    result = bin(total)[2:]
+    return result
 
+print(solve(1000))
+print(solve(150))
+print(solve(147))
 
-def is_prime(n: int) -> bool:
-    """ Check if a number is prime
-    >>> is_prime(2)
-    True
-    >>> is_prime(4)
-    False
-    """
-    if n < 2:
-        return False
-    for i in range(2, n):
-        if n % i == 0:
-            return False
-    return True
+# The output should be:
+# 1
+# 110
+# 1100
 
+# The function works by first converting the input number to binary and summing the digits. The sum is then converted back to binary and returned. The binary representation of the sum of the digits of the original number is the result.
 
-def prime_factors(n: int) -> list:
-    """ Return a list of prime factors of a number
-    >>> prime_factors(315)
-    [3, 3, 5, 7]
-    """
-    factors = []
-    while n % 2 == 0:
-        factors.append(2)
-        n = n // 2
-    for i in range(3, int(math.sqrt(n)) + 1, 2):
-        while n % i == 0:
-            factors.append(i)
-            n = n // i
-    if n > 2:
-        factors.append(n)
-    return factors
+# The time complexity of this function is O(log N) because we are iterating over the number of digits in the binary representation of N. The space complexity is also O(log N) because we are storing the binary representation of N.
 
+# The function assumes that the input is a positive integer. If the input is not a positive integer, the function may not work as expected.
 
-def gcd(a: int, b: int) -> int:
-    """ Compute the greatest common divisor of a and b
-    >>> gcd(18, 48)
-    6
-    """
-    while b != 0:
-        a, b = b, a % b
-    return a
+# The function does not handle any exceptions that may occur during the execution. If an exception occurs, the function may crash or produce incorrect results.
 
-
-def lcm(a: int, b: int) - int:
-    """ Compute the least common multiple of a and b
-    >>> lcm(5, 10)
-    10
-    """
-    return a * b // gcd(a, b)
-
-
-def fibonacci(n: int) -> int:
-    """ Compute theThe following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-
-Task_ID HumanEval/0:
+# The function does not check if the input is within the specified constraints. If the input is outside the specified constraints, the function may produce incorrect results or take an
+Task_ID HumanEval/92:
 Prompt:
-from typing import List
 
+def any_int(x, y, z):
+    '''
+    Create a function that takes 3 numbers.
+    Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.
+    Returns false in any other cases.
+    
+    Examples
+    any_int(5, 2, 7) ➞ True
+    
+    any_int(3, 2, 2) ➞ False
 
-def has_close_elements(numbers: List[float], threshold: float) -> bool:
-    """ Check if in given list of numbers, are any two numbers closer to each other than
-    given threshold.
-    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
-    False
-    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
-    True
-    """
+    any_int(3, -2, 1) ➞ True
+    
+    any_int(3.6, -2.2, 2) ➞ False
+  
+
+    
+    '''
 
 Response:
-from typing import List
 
+def any_int(x, y, z):
+    '''
+    Create a function that takes 3 numbers.
+    Returns true if one of the numbers is equal to the sum of the other two, and all numbers are integers.
+    Returns false in any other cases.
+    
+    Examples
+    any_int(5, 2, 7) ➞ True
+    
+    any_int(3, 2, 2) ➞ False
 
-def has_close_elements(numbers: List[float], threshold: float) -> bool:
-    """ Check if in given list of numbers, are any two numbers closer to each other than
-    given threshold.
-    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
-    False
-    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
-    True
-    """
-    numbers.sort()
-    for i in range(len(numbers) - 1):
-        if numbers[i+1] - numbers[i] < threshold:
+    any_int(3, -2, 1) ➞ True
+    
+    any_int(3.6, -2.2, 2) ➞ False
+  
+
+    
+    '''
+    if isinstance(x, int) and isinstance(y, int) and isinstance(z, int):
+        if x == y + z or y == x + z or z == x + y:
             return True
     return False
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-
-# 1.0, 2.8, 3.0, 4.0, 5.0, 2.0
-# 1.0, 2.0, 2.8, 3.0, 4.0, 5.0
-# 2.8 - 2.0 < 0.3
-# 2.0 - 1.0 < 0.3
-# 2.8 - 2.0 < 0.3
-# 3.0 - 2.8 < 0.3
-# 4.0 - 3.0 < 0.3
-# 5.0 - 4.0 < 0.3
-# False
-# True
-# True
-# True
-# True
-# True
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-Task_ID HumanEval/110:
+print(any_int(5, 2, 7))
+print(any_int(3, 2, 2))
+print(any(3, -2, 1))
+print(any_int(3.6, -2.2, 2))
+print(any_int(3, 2, 2))
+print(any_int(3, -2, 1))
+print(any_int(3.6, -2.2, 2))
+print(any_int(3, 2, 2))
+print(any_int(3, -2, 1))
+print(any_int(3.6, -2.2, 2))
+print(any_int(3, 2, 2))
+print(any_int(3, -2, 1))
+print(any_int(3.6, -2.2, 2))
+print(any_int(3, 2, 2))
+print(any_int(3, -2, 1))
+print(any_int(3.6, -2.2, 2))
+print(any_int(3, 2, 2))
+print(any_int(3, -2
+Task_ID HumanEval/147:
 Prompt:
 
-def exchange(lst1, lst2):
-    """In this problem, you will implement a function that takes two lists of numbers,
-    and determines whether it is possible to perform an exchange of elements
-    between them to make lst1 a list of only even numbers.
-    There is no limit on the number of exchanged elements between lst1 and lst2.
-    If it is possible to exchange elements between the lst1 and lst2 to make
-    all the elements of lst1 to be even, return "YES".
-    Otherwise, return "NO".
-    For example:
-    exchange([1, 2, 3, 4], [1, 2, 3, 4]) => "YES"
-    exchange([1, 2, 3, 4], [1, 5, 3, 4]) => "NO"
-    It is assumed that the input lists will be non-empty.
+def get_max_triples(n):
+    """
+    You are given a positive integer n. You have to create an integer array a of length n.
+        For each i (1 ≤ i ≤ n), the value of a[i] = i * i - i + 1.
+        Return the number of triples (a[i], a[j], a[k]) of a where i < j < k, 
+    and a[i] + a[j] + a[k] is a multiple of 3.
+
+    Example :
+        Input: n = 5
+        Output: 1
+        Explanation: 
+        a = [1, 3, 7, 13, 21]
+        The only valid triple is (1, 7, 13).
     """
 
 Response:
 
-def exchange(lst1, lst2):
-    """In this problem, you will implement a function that takes two lists of numbers,
-    and determines whether it is possible to perform an exchange of elements
-    between them to make lst1 a list of only even numbers.
-    There is no limit on the number of exchanged elements between lst1 and lst2.
-    If it is possible to exchange elements between the lst1 and lst2 to make
-    all the elements of lst1 to be even, return "YES".
-    Otherwise, return "NO".
-    For example:
-    exchange([1, 2, 3, 4], [1, 2, 3, 4]) => "YES"
-    exchange([1, 2, 3, 4], [1, 5, 3, 4]) => "NO"
-    It is assumed that the input lists will be non-empty.
+def get_max_triples(n):
     """
-    odd_lst1 = [num for num in lst1 if num % 2 != 0]
-    even_lst2 = [num for num in lst2 if num % 2 == 0]
-    if len(odd_lst1) <= len(even_lst2):
-        return "YES"
-    else:
-        return "NO"
+    You are given a positive integer n. You have to create an integer array a of length n.
+        For each i (1 ≤ i ≤ n), the value of a[i] = i * i - i + 1.
+        Return the number of triples (a[i], a[j], a[k]) of a where i < j < k, 
+    and a[i] + a[j] + a[k] is a multiple of 3.
+
+    Example :
+        Input: n = 5
+        Output: 1
+        Explanation: 
+        a = [1, 3, 7, 13, 21]
+        The only valid triple is (1, 7, 13).
+    """
+    a = [i * i - i + 1 for i in range(1, n + 1)]
+    count = 0
+    mod_count = [0] * 3
+    for num in a:
+        mod_count[num % 3] += 1
+    count += mod_count[0] * (mod_count[0] - 1) * (mod_count[0] - 2) // 6
+    count += mod_count[1] * (mod_count[1] - 1) * mod_count[2] // 2
+    count += mod_count[2] * (mod[2] - 1) * (mod_count[2] - 2) // 6
+    return count
 
 
-print(exchange([1, 2, 3, 4], [1, 2, 3, 4]))
-print(exchange([1, 2, 3, 4], [1, 5, 3, 4]))
-print(exchange([1, 2, 3, 4], [1, 2, 3, 4]))
-print(exchange([1, 2, 3, 4], [1, 2, 3, 4]))
-print(exchange([1, 2, 3, 4], [1, 2, 3, 4]))
-print(exchange([1, 2, 3, 4], [1, 2, 3, 4]))
-print(exchange([1, 2, 3, 4], [1, 
-Task_ID HumanEval/135:
+print(get_max_triples(5))
+
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 21
+# 1 3 7 13 
+Task_ID HumanEval/134:
 Prompt:
 
-def can_arrange(arr):
-    """Create a function which returns the largest index of an element which
-    is not greater than or equal to the element immediately preceding it. If
-    no such element exists then return -1. The given array will not contain
-    duplicate values.
-
-    Examples:
-    can_arrange([1,2,4,3,5]) = 3
-    can_arrange([1,2,3]) = -1
-    """
-
-Response:
-
-def can_arrange(arr):
-    """Create a function which returns the largest index of an element which
-    is not greater than or equal to the element immediately preceding it. If
-    no such element exists then return -1. The given array will not contain
-    duplicate values.
-
-    Examples:
-    can_arrange([1,2,4,3,5]) = 3
-    can_arrange([1,2,3]) = -1
-    """
-    for i in range(len(arr) - 1, 0, -1):
-        if arr[i] < arr[i - ]:
-            return i
-    return -1
-
-
-def can_arrange(arr):
-    """Create a function which returns the largest index of an element which
-    is not greater than or equal to the element immediately preceding it. If
-    no such element exists then return -1. The given array will not contain
-    duplicate values.
-
-    Examples:
-    can_arrange([1,2,4,3,5]) = 3
-    can_arrange([1,2,3]) = -1
-    """
-    for i in range(len(arr) - 1, 0, -1):
-        if arr[i] < arr[i - 1]:
-            return i
-    return -1
-
-
-def can_arrange(arr):
-    """Create a function which returns the largest index of an element which
-    is not greater than or equal to the element immediately preceding it. If
-    no such element exists then return -1. The given array will not contain
-    duplicate values.
-
-    Examples:
-    can_arrange([1,2,4,3,5]) = 3
-    can_arrange([1,2,3]) = -1
-    """
-    for i in range(len(arr) - 1, 0, -1):
-        if arr[i] < arr[i - 1]:
-            return i
-    return -1
-
-
-def can_arrange(arr):
-    """Create a function which returns the largest index of an element which
-    is not greater than or equal to the element immediately preceding it. If
-   
-Task_ID HumanEval/22:
-Prompt:
-from typing import List, Any
-
-
-def filter_integers(values: List[Any]) -> List[int]:
-    """ Filter given list of any python values only for integers
-    >>> filter_integers(['a', 3.14, 5])
-    [5]
-    >>> filter_integers([1, 2, 3, 'abc', {}, []])
-    [1, 2, 3]
-    """
-
-Response:
-from typing import List, Any
-
-
-def filter_integers(values: List[Any]) -> List[int]:
-    """ Filter given list of any python values only for integers
-    >>> filter_integers(['a', 3.14, 5])
-    [5]
-    >>> filter_integers([1, 2, 3, 'abc', {}, []])
-    [1, 2, 3]
-    """
-    return [value for value in values if isinstance(value, int)]
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-
-# 1. 정수만 필터링하는 함수를 작성하시오.
-# 2. 함수를 테스트하시오.
-# 3. 함수를 실행하여 정수만 필터링하는 결과를 출력하시오.
-# 4. 함수를 수정하여 정수와 실수를 필터링하도록 하시오.
-# 5. 함수를 테스트하시오.
-# 6. 함수를 실행하여 정수와 실수를 필터링하는 �
-Task_ID HumanEval/74:
-Prompt:
-
-def total_match(lst1, lst2):
+def check_if_last_char_is_a_letter(txt):
     '''
-    Write a function that accepts two lists of strings and returns the list that has 
-    total number of chars in the all strings of the list less than the other list.
+    Create a function that returns True if the last character
+    of a given string is an alphabetical character and is not
+    a part of a word, and False otherwise.
+    Note: "word" is a group of characters separated by space.
 
-    if the two lists have the same number of chars, return the first list.
-
-    Examples
-    total_match([], []) ➞ []
-    total_match(['hi', 'admin'], ['hI', 'Hi']) ➞ ['hI', 'Hi']
-    total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) ➞ ['hi', 'admin']
-    total_match(['hi', 'admin'], ['hI', 'hi', 'hi']) ➞ ['hI', 'hi', 'hi']
-    total_match(['4'], ['1', '2', '3', '4', '5']) ➞ ['4']
+    Examples:
+    check_if_last_char_is_a_letter("apple pie") ➞ False
+    check_if_last_char_is_a_letter("apple pi e") ➞ True
+    check_if_last_char_is_a_letter("apple pi e ") ➞ False
+    check_if_last_char_is_a_letter("") ➞ False 
     '''
 
 Response:
 
-def total_match(lst1, lst2):
+def check_if_last_char_is_a_letter(txt):
     '''
-    Write a function that accepts two lists of strings and returns the list that has 
-    total number of chars in the all strings of the list less than the other list.
+    Create a function that returns True if the last character
+    of a given string is an alphabetical character and is not
+    a part of a word, and False otherwise.
+    Note: "word" is a group of characters separated by space.
 
-    if the two lists have the same number of chars, return the first list.
-
-    Examples
-    total_match([], []) ➞ []
-    total_match(['hi', 'admin'], ['hI', 'Hi']) ➞ ['hI', 'Hi']
-    total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) ➞ ['hi', 'admin']
-    total_match(['hi', 'admin'], ['hI', 'hi', 'hi']) ➞ ['hI', 'hi', 'hi']
-    total_match(['4'], ['1', '2', '3', '4', '5']) ➞ ['4']
+    Examples:
+    check_if_last_char_is_a_letter("apple pie") ➞ False
+    check_if_last_char_is_a_letter("apple pi e") ➞ True
+    check_if_last_char_is_a_letter("apple pi e ") ➞ False
+    check_if_last_char_is_a_letter("") ➞ False 
     '''
-    total_chars1 = sum(len(word) for word in lst1)
-    total_chars2 = sum(len(word) for word in lst2)
-
-    if total_chars1 < total_chars2:
-        return lst1
-    elif total_chars2 <= total_chars1:
-        return lst2
-
-print(total_match([], []))
-print(total_match(['hi', 'admin'], ['hI', 'Hi']))
-print(total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']))
-print(total_match(['hi', 'admin'], ['hI', 'hi', 'hi']))
-print(total_match(['4'], ['1', '2', '3', '4', '5']))
-
-# Solution 2
-
-def total_match(lst1, lst2):
-    if sum(len(i) for i in lst1) < sum(len(i) for i in lst2):
-        return lst1
-    else:
-        return lst2
-
-print(total_match([], []))
-print(total_match(['hiThe following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-
-Task_ID HumanEval/118:
-Prompt:
-
-def get_closest_vowel(word):
-    """You are given a word. Your task is to find the closest vowel that stands between 
-    two consonants from the right side of the word (case sensitive).
-    
-    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
-    find any vowel met the above condition. 
-
-    You may assume that the given string contains English letter only.
-
-    Example:
-    get_closest_vowel("yogurt") ==> "u"
-    get_closest_vowel("FULL") ==> "U"
-    get_closest_vowel("quick") ==> ""
-    get_closest_vowel("ab") ==> ""
-    """
-
-Response:
-
-def get_closest_vowel(word):
-    """You are given a word. Your task is to find the closest vowel that stands between 
-    two consonants from the right side of the word (case sensitive).
-    
-    Vowels in the beginning and ending doesn't count. Return empty string if you didn't
-    find any vowel met the above condition. 
-
-    You may assume that the given string contains English letter only.
-
-    Example:
-    get_closest_vowel("yogurt") ==> "u"
-    get_closest_vowel("FULL") ==> "U"
-    get_closest_vowel("quick") ==> ""
-    get_closest_vowel("ab") ==> ""
-    """
-    vowels = "aeiouAEIOU"
-    for i in range(len(word)-2, 0, -1):
-        if word[i] in vowels and word[i-1] not in vowels and word[i+1] not in vowels:
-            return word[i]
-    return ""
-
-print(get_closest_vowel("yogurt"))
-print(get_closest_vowel("FULL"))
-print(getclosest_vowel("quick"))
-print(get_closest_vowel("ab"))
-print(get_closest_vowel("Elephant"))
-print(get_closest_vowel("Olive"))
-print(get_closest_vowel("Orange"))
-print(get_closest_vowel("IceCream"))
-print(get_closest_vowel("Cucumber"))
-print(get_closest_vowel("Banana"))
-print(get_closest_vowel("apple"))
-print(get_closest_vowel("E"))
-print(get_closest_vowel("I"))
-print(get_closest_vowel("O"))
-print(get_closest_vowel("U"))
-print(get_closest_vowel("A"))
-
-Task_ID HumanEval/80:
-Prompt:
-
-def is_happy(s):
-    """You are given a string s.
-    Your task is to check if the string is happy or not.
-    A string is happy if its length is at least 3 and every 3 consecutive letters are distinct
-    For example:
-    is_happy(a) => False
-    is_happy(aa) => False
-    is_happy(abcd) => True
-    is_happy(aabb) => False
-    is_happy(adb) => True
-    is_happy(xyy) => False
-    """
-
-Response:
-
-def is_happy(s):
-    """You are given a string s.
-    Your task is to check if the string is happy or not.
-    A string is happy if its length is at least 3 and every 3 consecutive letters are distinct
-    For example:
-    is_happy(a) => False
-    is_happy(aa) => False
-    is_happy(abcd) => True
-    is_happy(aabb) => False
-    is_happy(adb) => True
-    is_happy(xyy) => False
-    """
-    if len(s) < 3:
+    if len(txt) == 0 or not txt[-1].isalpha():
         return False
-    for i in range(len(s) - 2):
-        if len(set(s[i:i + 3])) != 3:
+    if len(txt) == 1:
+        return True
+    return txt[-2] == ' '
+
+print(check_if_last_char_is_a_letter("apple pie")) # False
+print(check_if_last_char_is_a_letter("apple pi e")) # True
+print(check_if_last_char_is_a_letter("apple pi e ")) # False
+print(check_if_last_char_is_a_letter("")) # False
+print(check_if_last_char_is_a_letter("a")) # True
+print(check_if_last_char_is_a_letter("a ")) # False
+print(check_if_last_char_is_a_letter(" a")) # True
+print(check_if_last_char_is_a_letter("1")) # False
+print(check_if_last_char_is_a_letter("1 ")) # False
+print(check_if_last_char_is_a_letter(" 1")) # False
+print(check_if_last_char_is_a_letter(" 1 ")) # False
+print(check_if_last_char_is_a_letter("1a")) # False
+print(check_if_
+Task_ID HumanEval/64:
+Prompt:
+
+FIX = """
+Add more test cases.
+"""
+
+def vowels_count(s):
+    """Write a function vowels_count which takes a string representing
+    a word as input and returns the number of vowels in the string.
+    Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+    vowel, but only when it is at the end of the given word.
+
+    Example:
+    >>> vowels_count("abcde")
+    2
+    >>> vowels_count("ACEDY")
+    3
+    """
+
+Response:
+
+FIX = """
+Add more test cases.
+"""
+
+def vowels_count(s):
+    """Write a function vowels_count which takes a string representing
+    a word as input and returns the number of vowels in the string.
+    Vowels in this case are 'a', 'e', 'i', 'o', 'u'. Here, 'y' is also a
+    vowel, but only when it is at the end of the given word.
+
+    Example:
+    >>> vowels_count("abcde")
+    2
+    >>> vowels_count("ACEDY")
+    3
+    """
+    vowels = "aeiou"
+    count = 0
+    for letter in s:
+        if letter.lower() in vowels:
+            count += 1
+    if s[-1].lower() == 'y':
+        count += 1
+    return count
+
+
+def test_vowels_count():
+    assert vowels_count("abcde") == 2
+    assert vowels_count("ACEDY") == 3
+    assert vowels_count("") == 0
+    assert vowels_count("Y") == 1
+    assert vowels_count("y") == 1
+    assert vowels_count("YoLo") == 2
+    assert vowels_count("AEIOU") == 5
+    assert vowels_count("Edgy") == 2
+    assert vowels_count("sneezy") == 3
+    assert vowels_count("dizzy") == 2
+    assert vowels_count("brainy") == 3
+    assert vowels_count("psychic") == 3
+    assert vowels_count("psychicY") == 4
+    assert vowels_count("psychicY") == 4
+    assert vowels_count("psychic") == 3
+    assert vowels_count("psychicY") == 4
+    assert vowels_count("psychic") == 3
+    assert vowels_count("psychicY") == 4
+    assert vowels_count("psychic") == 3
+    assert vowels_count("psychicY") == 4
+    assert vowels_count("The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
+
+Task_ID HumanEval/143:
+Prompt:
+
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+
+Response:
+
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+    def is_prime(n):
+        if n < 2:
             return False
-    return True
-
-
-print(is_happy('a'))  # False
-print(is_happy('aa'))  # False
-print(is_happy('abcd'))  # True
-print(is_happy('aabb'))  # False
-print(is_happy('adb'))  # True
-print(is_happy('xyy'))  # False
-print(is_happy('aab'))  # False
-print(is_happy('abc'))  # True
-print(is_happy('xyz'))  # True
-print(is_happy('abb'))  # False
-print(is_happy('aabbcc'))  # False
-print(is_happy('aabbccd'))  # True
-print(is_happy('abcabcabc'))  # True
-print(is_happy('abcabcabcabc'))  # True
-print(is_happy('abcabcabcabcabcabcabc'))  # True
-print(is_happy('abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
-Task_ID HumanEval/46:
-Prompt:
-
-
-def fib4(n: int):
-    """The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
-    fib4(0) -> 0
-    fib4(1) -> 0
-    fib4(2) -> 2
-    fib4(3) -> 0
-    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).
-    Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.
-    >>> fib4(5)
-    4
-    >>> fib4(6)
-    8
-    >>> fib4(7)
-    14
-    """
-
-Response:
-
-
-def fib4(n: int):
-    """The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
-    fib4(0) -> 0
-    fib4(1) -> 0
-    fib4(2) -> 2
-    fib4(3) -> 0
-    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).
-    Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.
-    >>> fib4(5)
-    4
-    >>> fib4(6)
-    8
-    >>> fib4(7)
-    14
-    """
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 0
-    elif n == 2:
-        return 2
-    elif n == 3:
-        return 0
-
-    fib = [0, 0, 2, 0]
-    for i in range(4, n + 1):
-        fib.append(fib[i - 1] + fib[i - 2] + fib[i - 3] + fib[i - 4])
-
-    return fib[n]
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod()
-
-#tests/test_fib4.py
-import unittest
-from fib4 import fib4
-
-
-class TestFib4(unittest.TestCase):
-    def test_fib4(self):
-        self.assertEqual(fib4(0), 0)
-        self.assertEqual(fib4(1), 0)
-        self.assertEqual(fib4(2), 2)
-        self.assertEqual(fib4(3), 0)
-        self.assertEqual(fib4(4), 2)
-        self.assertEqual(fib4(5), 4)
-        self.assertEqual(fib4(6), 8)
-
-Task_ID HumanEval/30:
-Prompt:
-
-
-def get_positive(l: list):
-    """Return only positive numbers in the list.
-    >>> get_positive([-1, 2, -4, 5, 6])
-    [2, 5, 6]
-    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
-    [5, 3, 2, 3, 9, 123, 1]
-    """
-
-Response:
-
-
-def get_positive(l: list):
-    """Return only positive numbers in the list.
-    >>> get_positive([-1, 2, -4, 5, 6])
-    [2, 5, 6]
-    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
-    [5, 3, 2, 3, 9, 123, 1]
-    """
-    return [i for i in l if i > 0]
-
-
-def get_even(l: list):
-    """Return only even numbers in the list.
-    >>> get_even([1, 2, 3, 4, 5, 6])
-    [2, 4, 6]
-    >>> get_even([5, 3, 2, 3, 9, 0, 123, 1, 10])
-    [2, 0, 123, 10]
-    """
-    return [i for i in l if i % 2 == 0]
-
-
-def get_odd(l: list):
-    """Return only odd numbers in the list.
-    >>> get_odd([1, 2, 3, 4, 5, 6])
-    [1, 3, 5]
-    >>> get get_odd([5, 3, 2, 3, 9, 0, 123, 1, 10])
-    [5, 3, 9, 1]
-    """
-    return [i for i in l if i % 2 != 0]
-
-
-def get_palindromes(l: list):
-    """Return only palindromes in the list.
-    >>> get_palindromes(['121', '12321', '123321'])
-    ['121', '12321']
-    >>> get_palindromes(['121', '12321', '12332
-Task_ID HumanEval/37:
-Prompt:
-
-
-def sort_even(l: list):
-    """This function takes a list l and returns a list l' such that
-    l' is identical to l in the odd indicies, while its values at the even indicies are equal
-    to the values of the even indicies of l, but sorted.
-    >>> sort_even([1, 2, 3])
-    [1, 2, 3]
-    >>> sort_even([5, 6, 3, 4])
-    [3, 6, 5, 4]
-    """
-
-Response:
-
-
-def sort_even(l: list):
-    """This function takes a list l and returns a list l' such that
-    l' is identical to l in the odd indicies, while its values at the even indicies are equal
-    to the values of the even indicies of l, but sorted.
-    >>> sort_even([1, 2, 3])
-    [1, 2, 3]
-    >>> sort_even([5, 6, 3, 4])
-    [3, 6, 5, 4]
-    """
-    even_index_values = sorted([l[i] for i in range(0, len(l), 2)])
-    result = l[:]
-    for i in range(0, len(l), 2):
-        result[i] = even_index_values.pop(0)
-    return result
-
-
-def main():
-    import doctest
-    doctest.testmod()
-
-
-if __name__ == "__main__":
-    main()
-
-#lab_03/test_sort_even.py
-import unittest
-from sort_even import sort_even
-
-
-class TestSortEven(unittest.TestCase):
-
-    def test_sort_even(self):
-        self.assertEqual(sort_even([1, 2, 3]), [1, 2, 3])
-        self.assertEqual(sort_even([5, 6, 3, 4]), [3, 6, 5, 4])
-        self.assertEqual(sort_even([1, 2, 3, 4, 5, 6]), [1, 2, 3, 4, 5, 6])
-        self.assertEqual(sort([]), [])
-
-
-if __name__ == "__main__":
-    unittest.main()
-
-#lab_03/test_sort_even_v2.py
-import unittest
-from sort_even import sort_even
-
-
-class TestSortEven(unittest.TestCase):
-
-    def test_sort_even(self):
-        self.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Setting `pad_token_id` to `eos_token_id`:32021 for open-end generation.
-Task_ID HumanEval/32:
-Prompt:
-import math
-
-
-def poly(xs: list, x: float):
-    """
-    Evaluates polynomial with coefficients xs at point x.
-    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
-    """
-    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
-
-
-def find_zero(xs: list):
-    """ xs are coefficients of a polynomial.
-    find_zero find x such that poly(x) = 0.
-    find_zero returns only only zero point, even if there are many.
-    Moreover, find_zero only takes list xs having even number of coefficients
-    and largest non zero coefficient as it guarantees
-    a solution.
-    >>> round(find_zero([1, 2]), 2) # f(x) = 1 + 2x
-    -0.5
-    >>> round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
-    1.0
-    """
-
-Response:
-import math
-
-
-def poly(xs: list, x: float):
-    """
-    Evaluates polynomial with coefficients xs at point x.
-    return xs[0] + xs[1] * x + xs[1] * x^2 + .... xs[n] * x^n
-    """
-    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
-
-
-def find_zero(xs: list):
-    """ xs are coefficients of a polynomial.
-    find_zero find x such that poly(x) = 0.
-    find_zero returns only only zero point, even if there are many.
-    Moreover, find_zero only takes list xs having even number of coefficients
-    and largest non zero coefficient as it guarantees
-    a solution.
-    >>> round(find_zero([1, 2]), 2) # f(x) = 1 + 2x
-    -0.5
-    >>> round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
-    1.0
-    """
-    if len(xs) % 2 == 1:
-        raise ValueError("xs must have even number of coefficients")
-    if xs[-1] == 0:
-        raise ValueError("largest coefficient must not be zero")
-
-    # Newton's method
-    x = 0
-    while abs(poly(xs, x)) > 1e-6:
-        x = x - poly(xs, x) / poly([coeff * i for i, coeff in enumerate(xs)], x)
-    return x
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod()
-
-#     print(find_zero([1, 2]))  # f(x) = 1 + 2x
-#     print(find_zero([-6, 11, -6, 1]))  # (x - 1)
-Task_ID HumanEval/1:
-Prompt:
-from typing import List
-
-
-def separate_paren_groups(paren_string: str) -> List[str]:
-    """ Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
-    separate those group into separate strings and return the list of those.
-    Separate groups are balanced (each open brace is properly closed) and not nested within each other
-    Ignore any spaces in the input string.
-    >>> separate_paren_groups('( ) (( )) (( )( ))')
-    ['()', '(())', '(()())']
-    """
-
-Response:
-from typing import List
-
-
-def separate_paren_groups(paren_string: str) -> List[str]:
-    """ Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
-    separate those group into separate strings and return the list of those.
-    Separate groups are balanced (each open brace is properly closed) and not nested within each other
-    Ignore any spaces in the input string.
-    >>> separate_paren_groups('( ) (( )) (( )( ))')
-    ['()', '(())', '(()())']
-    """
-    paren_string = paren_string.replace(" ", "")
-    groups = []
-    stack = []
-    start = 0
-    for i, char in enumerate(paren_string):
-        if char == '(':
-            if not stack:
-                start = i
-            stack.append(char)
-        elif char == ')':
-            stack.pop()
-            if not stack:
-                groups.append(paren_string[start: i+1])
-    return groups
-
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())', '(()())']
-print(separate)
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())', '(()())']
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())', '(()())']
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())', '(()())']
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())', '(()())']
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())', '(()())']
-print(separate_paren_groups('( ) (( )) (( )( ))'))  # ['()', '(())
-Task_ID HumanEval/53:
-Prompt:
-
-
-def add(x: int, y: int):
-    """Add two numbers x and y
-    >>> add(2, 3)
-    5
-    >>> add(5, 7)
-    12
-    """
-
-Response:
-
-
-def add(x: int, y: int):
-    """Add two numbers x and y
-    >>> add(2, 3)
-    5
-    >>> add(5, 7)
-    12
-    """
-    return x + y
-
-
-def subtract(x: int, y: int):
-    """Subtract y from x
-    >>> subtract(5, 3)
-    2
-    >>> subtract(7, 2)
-    5
-   
-    """
-    return x - y
-
-
-def multiply(x: int, y: int):
-    """Multiply x and y
-    >>> multiply(2, 3)
-    6
-    >>> multiply(5, 7)
-    35
-    """
-    return x * y
-
-
-def divide(x: int, y: int):
-    """Divide x by y
-    >>> divide(6, 3)
-    2
-    >>> divide(35, 7)
-    5
-    """
-    if y == 0:
-        raise ZeroDivisionError("division by zero")
-    return x // y
-
-
-def power(x: int, y: int):
-    """Raise x to the power of y
-    >>> power(2, 3)
-    8
-    >>> power(5, 2)
-    25
-    """
-    return x ** y
-
-
-def square_root(x: int):
-    """Compute the square root of x
-    >>> square_root(4)
-    2
-    >>> square_root(16)
-    4
-    """
-    return x ** 0.5
-
-
-def cube_root(x: int):
-    """Compute the cube root of x
-    >>> cube_root(8)
-    2
-    >>> cube_root(27)
-    3
-    """
-    return x ** (1 / 3)
-
-
-def factorial(x: int):
-    """Compute the factorial of x
-    >>> factorial(5)
-    120
-    >>> factorial(4)
-    24
-    """
-    if
-Task_ID HumanEval/47:
-Prompt:
-
-
-def median(l: list):
-    """Return median of elements in the list l.
-    >>> median([3, 1, 2, 4, 5])
-    3
-    >>> median([-10, 4, 6, 1000, 10, 20])
-    15.0
-    """
-
-Response:
-
-
-def median(l: list):
-    """Return median of elements in the list l.
-    >>> median([3, 1, 2, 4, 5])
-    3
-    >>> median([-10, 4, 6, 1000, 10, 20])
-    15.0
-    """
-    l.sort()
-    if len(l) % 2 == 0:
-        return (l[len(l) // 2 - ] + l[len(l) // 2]) / 2
-    else:
-        return l[len(l) // 2]
-
-
-def mode(l: list):
-    """Return mode of elements in the list l.
-    >>> mode([1, 2, 2, 3, 4])
-    2
-    >>> mode([1, 1, 2, 2, 3, 3, 4, 4])
-    2
-    """
-    counts = {i: l.count(i) for i in l}
-    return max(counts, key=counts.get)
-
-
-def mean(l: list):
-    """Return mean of elements in the list l.
-    >>> mean([1, 2, 3, 4, 5])
-    3.0
-    >>> mean([1, 2, 3, 4, 5, 6])
-    3.5
-    """
-    return sum(l) / len(l)
-
-
-def variance(l: list):
-    """Return variance of elements in the list l.
-    >>> variance([1, 2, 3, 4, 5])
-    2.5
-    >>> variance([1, 2, 3, 4, 5, 6])
-    3.5
-    """
-    m = mean(l)
-    return sum((i - m) ** 2 for i in l) / len(l)
-
-
-def standard_deviation(l: list):
-    """Return standard deviation of elements in the list l.
-    >>> standard_deviation([1, 2, 3, 4, 
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    words = sentence.split()
+    result = []
+    for word in words:
+        if is_prime(len(word)):
+            result.append(word)
+    return ' '.join(result)
+
+
+print(words_in_sentence("This is a test"))  # "is"
+print(words_in_sentence("lets go for swimming"))  # "go for"
+print(words_in_sentence("Python is a great programming language"))  # "is a great programming"
+print(words_in_sentence("I love solving problems"))  # "love solving problems"
+print(words_in_sentence("I am a student"))  # "am a"
+print(words_in_sentence("The quick brown fox jumps over the lazy dog"))  # "brown jumps over"
+print(words_in_sentence("She sells seashells on the seashore"))  # "sells seashells on"
+print(words))  # "s"
+print(words_in_sentence("The quick brown fox jumps over the lazy dog"))  # "brown jumps over"
+print(words_in_

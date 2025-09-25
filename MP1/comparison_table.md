@@ -1,28 +1,22 @@
-| Problem_ID | Base | Base_Processed | Instruct | Instruct_Processed |
-|------------|------|----------------|----------|---------------------|
-| HumanEval/0 | Pass | Fail | Pass | Fail |
-| HumanEval/1 | Fail | Fail | Pass | Fail |
-| HumanEval/110 | Fail | Fail | Fail | Fail |
-| HumanEval/118 | Fail | Fail | Fail | Fail |
-| HumanEval/135 | Fail | Fail | Fail | Fail |
-| HumanEval/22 | Pass | Fail | Pass | Fail |
-| HumanEval/24 | Fail | Fail | Fail | Fail |
-| HumanEval/30 | Fail | Fail | Fail | Fail |
-| HumanEval/32 | Fail | Fail | Fail | Fail |
-| HumanEval/36 | Fail | Fail | Fail | Fail |
-| HumanEval/37 | Fail | Fail | Fail | Fail |
-| HumanEval/42 | Fail | Fail | Fail | Fail |
-| HumanEval/46 | Pass | Fail | Fail | Fail |
-| HumanEval/47 | Fail | Fail | Fail | Fail |
-| HumanEval/48 | Pass | Fail | Fail | Fail |
-| HumanEval/53 | Fail | Fail | Fail | Fail |
-| HumanEval/63 | Pass | Fail | Fail | Fail |
-| HumanEval/74 | Fail | Fail | Pass | Fail |
-| HumanEval/80 | Fail | Fail | Fail | Fail |
-| HumanEval/9 | Fail | Fail | Fail | Fail |
-
-**Totals:**
-- Base: 5/20
-- Base_Processed: 0/20
-- Instruct: 4/20
-- Instruct_Processed: 0/20
+| Problem_ID    | base_results   | base_results_processed   | instruct_results   | instruct_results_processed   |
+|:--------------|:---------------|:-------------------------|:-------------------|:-----------------------------|
+| HumanEval/109 | fail           | fail                     | fail               | fail                         |
+| HumanEval/112 | fail           | pass                     | fail               | pass                         |
+| HumanEval/119 | fail           | fail                     | fail               | fail                         |
+| HumanEval/134 | fail           | fail                     | fail               | fail                         |
+| HumanEval/142 | fail           | fail                     | fail               | fail                         |
+| HumanEval/143 | fail           | fail                     | fail               | fail                         |
+| HumanEval/145 | fail           | fail                     | fail               | fail                         |
+| HumanEval/147 | fail           | fail                     | fail               | fail                         |
+| HumanEval/152 | pass           | pass                     | fail               | fail                         |
+| HumanEval/3   | pass           | pass                     | fail               | pass                         |
+| HumanEval/36  | fail           | fail                     | fail               | pass                         |
+| HumanEval/39  | pass           | pass                     | fail               | pass                         |
+| HumanEval/4   | pass           | pass                     | fail               | fail                         |
+| HumanEval/64  | fail           | fail                     | fail               | pass                         |
+| HumanEval/76  | fail           | pass                     | fail               | pass                         |
+| HumanEval/78  | fail           | fail                     | fail               | fail                         |
+| HumanEval/84  | fail           | pass                     | fail               | fail                         |
+| HumanEval/92  | fail           | fail                     | fail               | fail                         |
+| HumanEval/95  | fail           | fail                     | fail               | fail                         |
+| HumanEval/97  | fail           | pass                     | pass               | pass                         |
