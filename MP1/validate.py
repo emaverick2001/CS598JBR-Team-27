@@ -21,8 +21,10 @@ def extract_seed_from_selected_file(mp1_dir):
     seed_file_pattern = r"selected_humaneval_(\d+)\.jsonl"
     for file in os.listdir(mp1_dir):
         match = re.match(seed_file_pattern, file)
+        print(f"match: {match}")
         if match:
             seed_value = match.group(1)
+            print(f"seed_value: {seed_value}")
             print_message("success", f"Extracted seed value: {seed_value} from {file}")
             return seed_value
     print_message("error", "No selected_humaneval_[seed].jsonl file found!")
@@ -131,6 +133,7 @@ def validate_jsonl_entries(file_path, expected_entries=20):
 def validate_jsonl_files(repo_name):
     mp1_dir = os.path.join(repo_name, "MP1")
     seed_value = extract_seed_from_selected_file(mp1_dir)
+    print(f"seed_value: {seed_value}")
     if not seed_value:
         return False
 
