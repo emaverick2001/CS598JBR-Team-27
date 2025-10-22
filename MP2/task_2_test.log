@@ -1,0 +1,30 @@
+Working with deepseek-ai/deepseek-coder-6.7b-instruct prompt type True...
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 397, in from_name
+    return next(cls.discover(name=name))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/content/drive/.shortcut-targets-by-id/1nDHjHffV_Q_dXMz5cYmkE4qSrEy2es6K/CS598JBR-Team-27 Drive/CS598JBR-Team-27/MP2/task_2.py", line 224, in <module>
+    results = prompt_model(dataset, model, vanilla)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/drive/.shortcut-targets-by-id/1nDHjHffV_Q_dXMz5cYmkE4qSrEy2es6K/CS598JBR-Team-27 Drive/CS598JBR-Team-27/MP2/task_2.py", line 129, in prompt_model
+    bnb_config = BitsAndBytesConfig(
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/quantization_config.py", line 510, in __init__
+    self.post_init()
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/quantization_config.py", line 568, in post_init
+    if self.load_in_4bit and not version.parse(importlib.metadata.version("bitsandbytes")) >= version.parse(
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 889, in version
+    return distribution(distribution_name).version
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 862, in distribution
+    return Distribution.from_name(distribution_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/metadata/__init__.py", line 399, in from_name
+    raise PackageNotFoundError(name)
+importlib.metadata.PackageNotFoundError: No package metadata was found for bitsandbytes
