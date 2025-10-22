@@ -1,9 +1,9 @@
 # CS598JBR-Team-27
 
 ## Group members
-Maverick Espinosa, mae10
-Muskan Shivnani, mns9
 Pranav Nagarajan, pranavn6
+Muskan Shivnani, mns9
+Maverick Espinosa, mae10
 Sujay Nithish, snh6
 ## Link of Google Colab Notebook
 MP1 - https://colab.research.google.com/drive/1LuCFRL3Mkc-aPGimBkXpgLDiNAzLQqYM?usp=sharing
