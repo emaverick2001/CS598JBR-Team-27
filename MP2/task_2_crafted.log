@@ -1,41 +1,78 @@
-2025-10-22 03:56:12.511184: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-10-22 04:24:16.402539: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-E0000 00:00:1761105372.531655   48144 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-E0000 00:00:1761105372.537812   48144 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-W0000 00:00:1761105372.554491   48144 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1761105372.554518   48144 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1761105372.554521   48144 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-W0000 00:00:1761105372.554523   48144 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
-2025-10-22 03:56:12.559339: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+E0000 00:00:1761107056.423040   55519 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1761107056.429214   55519 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1761107056.446094   55519 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1761107056.446117   55519 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1761107056.446120   55519 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1761107056.446122   55519 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2025-10-22 04:24:16.451034: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
 Working with deepseek-ai/deepseek-coder-6.7b-instruct prompt type False...
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:43<00:43, 43.29s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 27.09s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 29.52s/it]
-test code to visualize output: ...
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:44<00:44, 44.02s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 27.36s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 29.86s/it]
+test code to visualize output: import pytest
+
+def test_empty_dict():
+    assert check_case({}) == False
+
+def test_single_uppercase_key():
+    assert check_case({'KEY': 'value'}) == True
+
+def test_single_lowercase_key():
+    assert check_case({'key': 'value'}) == True
+
+def test_mixed_case_keys():
+    assert check_case({'Key': 'value'}) == False
+
+def test_multiple_keys():
+    assert check_case({'KEY': 'value', 'key': 'value'}) == False
+
+def test_keys_with_numbers():
+    assert check_case({'KEY1': 'value', 'key2': 'value'}) == False
+
+def test_keys_with_special_characters():
+    assert check_case({'KEY!': 'value', 'key@': 'value'}) == False
+
+def test_keys_with_empty_string():
+    assert check_case({'': 'value', 'key': 'value'}) == False
+
+def test_keys_with_none():
+    assert check_case({None: 'value', 'key': 'value'}) == False
+
+def test_keys_with_negative_numbers():
+    assert check_case({-1: 'value', 'key': 'value'}) == False
+
+def test_keys_with_zero():
+    assert check_case({0: 'value', 'key': 'value'}) == False
+
+def test_keys_with_upper_and_lower_case():
+    assert check_case({'Key': 'value', 'key': 'value'}) == False
+
+def test_keys_with_upper_and_mixed_case():
+    assert check_case({'Key': 'value', 'kEy': 'value'}) == False
+
+def test_keys_with_lower_and_mixed_case():
+    assert check_case({'key': 'value', 'kEy': 'value'}) == False
 
 Task_ID HumanEval/95:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_95.py`  •  Target function: `check_dict_case`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `check_dict_case(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `check_dict_case`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     if len(dict.keys()) == 0:
         return False
     else:
@@ -60,31 +97,26 @@ def test_shape_only_example():
         return state == "upper" or state == "lower" 
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_95.py`  •  Target function: `check_dict_case`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `check_dict_case(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `check_dict_case`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     if len(dict.keys()) == 0:
         return False
     else:
@@ -109,81 +141,101 @@ def test_shape_only_example():
         return state == "upper" or state == "lower" 
 
 
-### Response
+### Response:
 ```python
 import pytest
 
-def check_dict_case(dict):
-    if len(dict.keys()) == 0:
-        return False
-    else:
-        state = "start"
-        for key in dict.keys():
-            if isinstance(key, str) == False:
-                state = "mixed"
-                break
-            if state == "start":
-                if key.isupper():
-                    state = "upper"
-                elif key.islower():
-                    state = "lower"
-                else:
-                    break
-            elif (state == "upper" and not key.isupper()) or (state == "lower" and not key.islower()):
-                    state = "mixed"
-                    break
-            else:
-                break
-        return state == "upper" or state == "lower" 
-
 def test_empty_dict():
-    assert check_dict_case({}) is False
+    assert check_case({}) == False
 
-def test_all_uppercase_keys():
-    assert check_dict_case({'KEY1': 'value1', 'KEY2': 'value2'}) is True
+def test_single_uppercase_key():
+    assert check_case({'KEY': 'value'}) == True
 
-def test_all_lowercase_keys():
-    assert check_dict_case({'key1': 'value1', 'key2': 'value2'}) is True
+def test_single_lowercase_key():
+    assert check_case({'key': 'value'}) == True
 
 def test_mixed_case_keys():
-    assert check_dict_case({'KeY1': 'value1', 'key2': 'value2'}) is False
+    assert check_case({'Key': 'value'}) == False
 
-def test_non_string_keys():
-    assert check_dict_case({1: 'value1', 2: 'value2'}) is False
+def test_multiple_keys():
+    assert check_case({'KEY': 'value', 'key': 'value'}) == False
 
-def test_empty_keys():
-    assert check_dict_case({'': 'value1', 'key2': 'value2'}) is False
+def test_keys_with_numbers():
+    assert check_case({'KEY1': 'value', 'key2': 'value'}) == False
+
+def test_keys_with_special_characters():
+    assert check_case({'KEY!': 'value', 'key@': 'value'}) == False
+
+def test_keys_with_empty_string():
+    assert check_case({'': 'value', 'key': 'value'}) == False
+
+def test_keys_with_none():
+    assert check_case({None: 'value', 'key': 'value'}) == False
+
+def test_keys_with_negative_numbers():
+    assert check_case({-1: 'value', 'key': 'value'}) == False
+
+def test_keys_with_zero():
+    assert check_case({0: 'value', 'key': 'value'}) == False
+
+def test_keys_with_upper_and_lower_case():
+    assert check_case({'Key': 'value', 'key': 'value'}) == False
+
+def test_keys_with_upper_and_mixed_case():
+    assert check_case({'Key': 'value', 'kEy': 'value'}) == False
+
+def test_keys_with_lower_and_mixed_case():
+    assert check_case({'key': 'value', 'kEy': 'value'}) == False
 ```
-This test suite covers the edge cases and normal cases of the function `check_dict_case`. It tests the function with an empty dictionary, a dictionary with all uppercase keys, a dictionary with all lowercase keys, a dictionary with mixed case keys, a dictionary with non-string keys, and a dictionary with an empty key.
 
 coverage:
-5.2631578947368425
-test code to visualize output: ...
+94.73684210526316
+test code to visualize output: import pytest
+
+def is_power_of_n(n, x):
+    if (n == 1):
+        return (x == 1)
+    power = 1
+    while (power < x):
+        power = power * n
+    return (power == x)
+
+def test_is_power_of_n():
+    assert is_power_of_n(2, 4) == True
+    assert is_power_of_n(2, 5) == False
+    assert is_power_of_n(3, 9) == True
+    assert is_power_of_n(3, 8) == False
+    assert is_power_of_n(1, 1) == True
+    assert is_power_of_n(1, 2) == False
+    assert is_power_of_n(0, 0) == True
+    assert is_power_of_n(0, 1) == False
+    assert is_power_of_n(2, 0) == True
+    assert is_power_of_n(2, -4) == False
+    assert is_power_of_n(-2, 4) == False
+    assert is_power_of_n(-2, -4) == True
+    assert is_power_of_n(None, None) == True
+    assert is_power_of_n(None, 0) == False
+    assert is_power_of_n(2, None) == False
 
 Task_ID HumanEval/76:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_76.py`  •  Target function: `is_simple_power`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `is_simple_power(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `is_simple_power`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     if (n == 1): 
         return (x == 1) 
     power = 1
@@ -192,31 +244,26 @@ def test_shape_only_example():
     return (power == x) 
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_76.py`  •  Target function: `is_simple_power`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `is_simple_power(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `is_simple_power`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     if (n == 1): 
         return (x == 1) 
     power = 1
@@ -225,64 +272,101 @@ def test_shape_only_example():
     return (power == x) 
 
 
-### Response
+### Response:
 ```python
 import pytest
 
-def is_simple_power(n, x):
-    if (n == 1): 
-        return (x == 1) 
+def is_power_of_n(n, x):
+    if (n == 1):
+        return (x == 1)
     power = 1
-    while (power < x): 
-        power = power * n 
-    return (power == x) 
+    while (power < x):
+        power = power * n
+    return (power == x)
 
-def test_is_simple_power():
-    assert is_simple_power(2, 4) is True
-    assert is_simple_power(2, 8) is False
-    assert is_simple_power(3, 27) is True
-    assert is_simple_power(3, 24) is False
-    assert is_simple_power(1, 1) is True
-    assert is_simple_power(1, 2) is False
-    assert is_simple_power(0, 0) is True
-    assert is_simple_power(0, 1) is False
-    assert is_simple_power(-2, 4) is False
-    assert is_simple_power(-2, -4) is True
-    assert is_simple_power(-2, 8) is False
-    assert is_simple_power(2, 0) is True
-    assert is_simple_power(2, -4) is False
-    assert is_simple_power(2, -8) is False
+def test_is_power_of_n():
+    assert is_power_of_n(2, 4) == True
+    assert is_power_of_n(2, 5) == False
+    assert is_power_of_n(3, 9) == True
+    assert is_power_of_n(3, 8) == False
+    assert is_power_of_n(1, 1) == True
+    assert is_power_of_n(1, 2) == False
+    assert is_power_of_n(0, 0) == True
+    assert is_power_of_n(0, 1) == False
+    assert is_power_of_n(2, 0) == True
+    assert is_power_of_n(2, -4) == False
+    assert is_power_of_n(-2, 4) == False
+    assert is_power_of_n(-2, -4) == True
+    assert is_power_of_n(None, None) == True
+    assert is_power_of_n(None, 0) == False
+    assert is_power_of_n(2, None) == False
 ```
-This test suite covers a variety of cases including normal cases, edge cases, and error paths. It tests the function with different inputs to ensure that it behaves as expected.
 
 coverage:
-14.285714285714286
-test code to visualize output: ...
+85.71428571428571
+test code to visualize output: import pytest
+from your_module import your_function  # replace with your actual module and function
+
+def test_empty_input():
+    assert your_function([]) == 'No'
+
+def test_single_element():
+    assert your_function(['(']) == 'Yes'
+    assert your_function([')']) == 'Yes'
+
+def test_two_elements():
+    assert your_function(['(', ')']) == 'Yes'
+    assert your_function([')', '(']) == 'Yes'
+    assert your_function(['(', '(']) == 'No'
+    assert your_function([')', ')']) == 'Yes'
+
+def test_three_elements():
+    assert your_function(['(', '(', ')']) == 'Yes'
+    assert your_function(['(', ')', '(']) == 'Yes'
+    assert your_function([')', '(', ')']) == 'Yes'
+    assert your_function([')', '(', '(']) == 'No'
+    assert your_function(['(', '(', ')', ')']) == 'Yes'
+    assert your_function(['(', ')', '(', ')']) == 'Yes'
+    assert your_function([')', '(', '(', ')']) == 'Yes'
+    assert your_function([')', ')', '(', '(']) == 'No'
+
+def test_mixed_elements():
+    assert your_function(['(', '(', ')', ')', '(', ')']) == 'Yes'
+    assert your_function(['(', ')', '(', '(', ')', ')']) == 'Yes'
+    assert your_function([')', '(', '(', ')', '(', ')']) == 'Yes'
+    assert your_function([')', ')', '(', '(', ')', '(', ')']) == 'No'
+
+def test_negative_cases():
+    assert your_function(['(', ')', '(', '(', ')', ')', ')']) == 'No'
+    assert your_function(['(', '(', '(', ')', ')', ')', ')']) == 'No'
+    assert your_function([')', '(', '(', '(', ')', ')', ')']) == 'No'
+    assert your_function([')', ')', '(', '(', '(', ')', ')', ')']) == 'No'
+
+def test_boundary_cases():
+    assert your_function(['(', '(', '(', '(', ')', ')', ')', ')']) == 'Yes'
+    assert your_function(['(', '(', '(', ')', ')', '(', ')', ')']) == 'Yes'
+    assert your_function(['(', '(', ')', '(', ')', '(', ')', ')']) == 'Yes'
+    assert your_function(['(', ')', '(', ')', '(', ')', '(', ')']) == 'Yes'
 
 Task_ID HumanEval/119:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_119.py`  •  Target function: `match_parens`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `match_parens(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `match_parens`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     def check(s):
         val = 0
         for i in s:
@@ -299,31 +383,26 @@ def test_shape_only_example():
     return 'Yes' if check(S1) or check(S2) else 'No'
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_119.py`  •  Target function: `match_parens`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `match_parens(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `match_parens`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     def check(s):
         val = 0
         for i in s:
@@ -340,70 +419,111 @@ def test_shape_only_example():
     return 'Yes' if check(S1) or check(S2) else 'No'
 
 
-### Response
+### Response:
 ```python
 import pytest
+from your_module import your_function  # replace with your actual module and function
 
-def match_parens(lst):
-    def check(s):
-        val = 0
-        for i in s:
-            if i == '(':
-                val = val + 1
-            else:
-                val = val - 1
-            if val < 0:
-                return False
-        return True if val == 0 else False
+def test_empty_input():
+    assert your_function([]) == 'No'
 
-    S1 = lst[0] + lst[1]
-    S2 = lst[1] + lst[0]
-    return 'Yes' if check(S1) or check(S2) else 'No'
+def test_single_element():
+    assert your_function(['(']) == 'Yes'
+    assert your_function([')']) == 'Yes'
 
-def test_match_parens():
-    assert match_parens(['(())', '()()']) == 'Yes'
-    assert match_parens(['(())', '())(']) == 'No'
-    assert match_parens(['((', '))']) == 'No'
-    assert match_parens(['(', ')']) == 'Yes'
-    assert match_parens(['', '']) == 'Yes'
-    assert match_parens([None, None]) == 'Yes'
-    assert match_parens([['(', ')'], [')', '(']]) == 'Yes'
-    assert match_parens([['(', '('], [')', ')']]) == 'No'
-    with pytest.raises(TypeError):
-        match_parens(123)
-    with pytest.raises(TypeError):
-        match_parens(['abc', 'def'])
+def test_two_elements():
+    assert your_function(['(', ')']) == 'Yes'
+    assert your_function([')', '(']) == 'Yes'
+    assert your_function(['(', '(']) == 'No'
+    assert your_function([')', ')']) == 'Yes'
+
+def test_three_elements():
+    assert your_function(['(', '(', ')']) == 'Yes'
+    assert your_function(['(', ')', '(']) == 'Yes'
+    assert your_function([')', '(', ')']) == 'Yes'
+    assert your_function([')', '(', '(']) == 'No'
+    assert your_function(['(', '(', ')', ')']) == 'Yes'
+    assert your_function(['(', ')', '(', ')']) == 'Yes'
+    assert your_function([')', '(', '(', ')']) == 'Yes'
+    assert your_function([')', ')', '(', '(']) == 'No'
+
+def test_mixed_elements():
+    assert your_function(['(', '(', ')', ')', '(', ')']) == 'Yes'
+    assert your_function(['(', ')', '(', '(', ')', ')']) == 'Yes'
+    assert your_function([')', '(', '(', ')', '(', ')']) == 'Yes'
+    assert your_function([')', ')', '(', '(', ')', '(', ')']) == 'No'
+
+def test_negative_cases():
+    assert your_function(['(', ')', '(', '(', ')', ')', ')']) == 'No'
+    assert your_function(['(', '(', '(', ')', ')', ')', ')']) == 'No'
+    assert your_function([')', '(', '(', '(', ')', ')', ')']) == 'No'
+    assert your_function([')', ')', '(', '(', '(', ')', ')', ')']) == 'No'
+
+def test_boundary_cases():
+    assert your_function(['(', '(', '(', '(', ')', ')', ')', ')']) == 'Yes'
+    assert your_function(['(', '(', '(', ')', ')', '(', ')', ')']) == 'Yes'
+    assert your_function(['(', '(', ')', '(', ')', '(', ')', ')']) == 'Yes'
+    assert your_function(['(', ')', '(', ')', '(', ')', '(', ')']) == 'Yes'
 ```
-This test suite covers a variety of cases, including normal cases, edge cases, and error paths. It also tests the function with different types of inputs to ensure that it can handle them correctly.
 
 coverage:
-7.6923076923076925
-test code to visualize output: ...
+100.0
+test code to visualize output: import pytest
+from your_module import digits_sum
+
+def test_empty_input():
+    assert digits_sum([]) == []
+
+def test_single_digit():
+    assert digits_sum([1]) == [1]
+
+def test_negative_numbers():
+    assert digits_sum([-1, -2, -3]) == [-1, -2, -3]
+
+def test_zero():
+    assert digits_sum([0, 0, 0]) == [0, 0, 0]
+
+def test_positive_numbers():
+    assert digits_sum([1, 2, 3]) == [1, 2, 3]
+
+def test_positive_numbers_with_different_digits():
+    assert digits_sum([12, 23, 34]) == [12, 23, 34]
+
+def test_positive_numbers_with_same_digits():
+    assert digits_sum([11, 22, 33]) == [11, 22, 33]
+
+def test_mixed_positive_and_negative_numbers():
+    assert digits_sum([1, -2, 3]) == [-2, 1, 3]
+
+def test_boundary_conditions():
+    assert digits_sum([10**9, -10**9, 0]) == [-10**9, 0, 10**9]
+
+def test_large_numbers():
+    assert digits_sum([1234567890, 9876543210, 5555555555]) == [1234567890, 5555555555, 9876543210]
+
+def test_none_input():
+    with pytest.raises(TypeError):
+        digits_sum(None)
 
 Task_ID HumanEval/145:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_145.py`  •  Target function: `order_by_points`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `order_by_points(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `order_by_points`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     def digits_sum(n):
         neg = 1
         if n < 0: n, neg = -1 * n, -1 
@@ -413,31 +533,26 @@ def test_shape_only_example():
     return sorted(nums, key=digits_sum)
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_145.py`  •  Target function: `order_by_points`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `order_by_points(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `order_by_points`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     def digits_sum(n):
         neg = 1
         if n < 0: n, neg = -1 * n, -1 
@@ -447,85 +562,107 @@ def test_shape_only_example():
     return sorted(nums, key=digits_sum)
 
 
-### Response
+### Response:
 ```python
-def test_order_by_points():
-    assert order_by_points([15, 5, 10, 100]) == [5, 15, 10, 100]
-    assert order_by_points([15, 5, 10, 100, 25]) == [5, 15, 10, 25, 100]
-    assert order_by_points([15, 5, 10, 100, 25, 20]) == [5, 15, 10, 20, 25, 100]
-    assert order_by_points([15, 5, 10, 100, 25, 20, 7]) == [5, 7, 15, 10, 20, 25, 100]
-    assert order_by_points([15, 5, 10, 100, 25, 20, 7, 3]) == [3, 5, 7, 15, 10, 20, 25, 100]
-    assert order_by_points([15, 5, 10, 100, 25, 20, 7, 3, 1]) == [1, 3, 5, 7, 15, 10, 20, 25, 100]
-    assert order_by_points([15, 5, 10, 100, 25, 20, 7, 3, 1, 0]) == [0, 1, 3, 5, 7, 15, 10, 20, 25, 100]
-    assert order_by_points([]) == []
-    assert order_by_points(None) == []
-    assert order_by_points([15, 5, -10, 100, 25, -20, 7, 3, -1]) == [-1, 3, 5, 7, 15, -10, 100, 25, -20]
+import pytest
+from your_module import digits_sum
+
+def test_empty_input():
+    assert digits_sum([]) == []
+
+def test_single_digit():
+    assert digits_sum([1]) == [1]
+
+def test_negative_numbers():
+    assert digits_sum([-1, -2, -3]) == [-1, -2, -3]
+
+def test_zero():
+    assert digits_sum([0, 0, 0]) == [0, 0, 0]
+
+def test_positive_numbers():
+    assert digits_sum([1, 2, 3]) == [1, 2, 3]
+
+def test_positive_numbers_with_different_digits():
+    assert digits_sum([12, 23, 34]) == [12, 23, 34]
+
+def test_positive_numbers_with_same_digits():
+    assert digits_sum([11, 22, 33]) == [11, 22, 33]
+
+def test_mixed_positive_and_negative_numbers():
+    assert digits_sum([1, -2, 3]) == [-2, 1, 3]
+
+def test_boundary_conditions():
+    assert digits_sum([10**9, -10**9, 0]) == [-10**9, 0, 10**9]
+
+def test_large_numbers():
+    assert digits_sum([1234567890, 9876543210, 5555555555]) == [1234567890, 5555555555, 9876543210]
+
+def test_none_input():
+    with pytest.raises(TypeError):
+        digits_sum(None)
 ```
 
-### Explanation
-The test suite is checking the `order_by_points` function with various inputs. The function is expected to return a list of numbers sorted by the sum of their digits. The tests cover normal cases, edge cases (empty/None/negatives), and boundary conditions.
-
-The function is expected to return the same output for the same input, so the tests are minimal and readable.
-
-The function is expected to handle any input that is a list of integers, so the tests cover normal cases, edge cases (empty/None), and boundary conditions.
-
-The function is expected to return an empty list for any input that is not a list of integers, so the tests cover error paths.
-
-The function is expected to sort the list in ascending order, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in a stable manner, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in linearithmic time, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in constant space, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in place, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in a stable manner, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in linearithmic time, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in constant space, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in place, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in a stable manner, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in linearithmic time, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in constant space, so the tests cover normal cases and boundary conditions.
-
-The function is expected to sort the list in place, so the tests cover normal cases and boundary conditions.
-
-
 coverage:
-12.5
-test code to visualize output: ...
+100.0
+test code to visualize output: import pytest
+
+def test_empty_input():
+    assert process_list([]) == 0
+
+def test_zero_input():
+    assert process_list([0, 0, 0, 0]) == 0
+
+def test_negative_input():
+    assert process_list([-1, -2, -3, -4]) == -10
+
+def test_none_input():
+    assert process_list([None, None, None, None]) == 0
+
+def test_normal_cases():
+    assert process_list([1, 2, 3, 4]) == 11
+    assert process_list([2, 3, 4, 5]) == 28
+    assert process_list([3, 4, 5, 6]) == 46
+
+def test_edge_cases():
+    assert process_list([10, 10, 10, 10]) == 100
+    assert process_list([20, 20, 20, 20]) == 800
+    assert process_list([30, 30, 30, 30]) == 2700
+
+def test_boundary_conditions():
+    assert process_list([100, 100, 100, 100]) == 10000
+    assert process_list([200, 200, 200, 200]) == 160000
+    assert process_list([300, 300, 300, 300]) == 270000
+
+def test_all_execution_paths_and_branches():
+    assert process_list([1, 2, 3, 1]) == 5
+    assert process_list([2, 3, 4, 2]) == 15
+    assert process_list([3, 4, 5, 3]) == 33
+    assert process_list([1, 2, 3, 4]) == 11
+    assert process_list([2, 3, 4, 5]) == 28
+    assert process_list([3, 4, 5, 6]) == 46
+    assert process_list([1, 2, 3, 2]) == 9
+    assert process_list([2, 3, 4, 3]) == 27
+    assert process_list([3, 4, 5, 4]) == 64
 
 Task_ID HumanEval/142:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_142.py`  •  Target function: `sum_squares`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `sum_squares(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `sum_squares`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     result =[]
     for i in range(len(lst)):
         if i %3 == 0:
@@ -537,31 +674,26 @@ def test_shape_only_example():
     return sum(result)
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_142.py`  •  Target function: `sum_squares`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `sum_squares(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `sum_squares`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     result =[]
     for i in range(len(lst)):
         if i %3 == 0:
@@ -573,78 +705,108 @@ def test_shape_only_example():
     return sum(result)
 
 
-### Response
+### Response:
 ```python
 import pytest
 
-def sum_squares(lst):
-    result =[]
-    for i in range(len(lst)):
-        if i %3 == 0:
-            result.append(lst[i]**2)
-        elif i % 4 == 0 and i%3 != 0:
-            result.append(lst[i]**3)
-        else:
-            result.append(lst[i])
-    return sum(result)
+def test_empty_input():
+    assert process_list([]) == 0
 
-def test_sum_squares_empty():
-    assert sum_squares([]) == 0
+def test_zero_input():
+    assert process_list([0, 0, 0, 0]) == 0
 
-def test_sum_squares_single_element():
-    assert sum_squares([1]) == 1
+def test_negative_input():
+    assert process_list([-1, -2, -3, -4]) == -10
 
-def test_sum_squares_multiple_elements():
-    assert sum_squares([1, 2, 3, 4, 5]) == 32
+def test_none_input():
+    assert process_list([None, None, None, None]) == 0
 
-def test_sum_squares_negative_elements():
-    assert sum_squares([1, -2, 3, -4, 5]) == 3
+def test_normal_cases():
+    assert process_list([1, 2, 3, 4]) == 11
+    assert process_list([2, 3, 4, 5]) == 28
+    assert process_list([3, 4, 5, 6]) == 46
 
-def test_sum_squares_large_elements():
-    assert sum_squares([100, 200, 300, 400, 500]) == 150000
+def test_edge_cases():
+    assert process_list([10, 10, 10, 10]) == 100
+    assert process_list([20, 20, 20, 20]) == 800
+    assert process_list([30, 30, 30, 30]) == 2700
 
-def test_sum_squares_zero_elements():
-    assert sum_squares([0, 0, 0, 0, 0]) == 0
+def test_boundary_conditions():
+    assert process_list([100, 100, 100, 100]) == 10000
+    assert process_list([200, 200, 200, 200]) == 160000
+    assert process_list([300, 300, 300, 300]) == 270000
 
-def test_sum_squares_negative_zero_elements():
-    assert sum_squares([0, -1, -2, -3, -4]) == 0
-
-def test_sum_squares_error():
-    with pytest.raises(TypeError):
-        sum_squares(None)
-    with pytest.raises(TypeError):
-        sum_squares('1,2,3')
+def test_all_execution_paths_and_branches():
+    assert process_list([1, 2, 3, 1]) == 5
+    assert process_list([2, 3, 4, 2]) == 15
+    assert process_list([3, 4, 5, 3]) == 33
+    assert process_list([1, 2, 3, 4]) == 11
+    assert process_list([2, 3, 4, 5]) == 28
+    assert process_list([3, 4, 5, 6]) == 46
+    assert process_list([1, 2, 3, 2]) == 9
+    assert process_list([2, 3, 4, 3]) == 27
+    assert process_list([3, 4, 5, 4]) == 64
 ```
-This test suite covers a variety of scenarios including empty lists, lists with a single element, lists with multiple elements, lists with negative numbers, large numbers, zeroes, and negative zeroes. It also tests the error handling for the function when the input is not a list.
 
 coverage:
-11.11111111111111
-test code to visualize output: ...
+88.88888888888889
+test code to visualize output: import pytest
+from your_module import your_function  # replace with your actual module and function
+
+def test_empty_input():
+    assert your_function([]) == True
+
+def test_single_element():
+    assert your_function([5]) == True
+
+def test_sorted_array():
+    assert your_function([1, 2, 3, 4, 5]) == True
+
+def test_reversed_array():
+    assert your_function([5, 4, 3, 2, 1]) == True
+
+def test_negative_numbers():
+    assert your_function([-5, -4, -3, -2, -1]) == True
+
+def test_zero():
+    assert your_function([0, 0, 0, 0]) == True
+
+def test_negative_positive_mixed():
+    assert your_function([-5, -4, 3, 2, 1]) == True
+
+def test_duplicates():
+    assert your_function([1, 2, 2, 1]) == True
+
+def test_non_rotation():
+    assert your_function([1, 2, 3, 4]) == False
+
+def test_large_input():
+    large_array = list(range(1, 10**6 + 1))
+    assert your_function(large_array) == True
+
+def test_large_input_reversed():
+    large_array = list(range(10**6, 0, -1))
+    assert your_function(large_array) == True
 
 Task_ID HumanEval/109:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_109.py`  •  Target function: `move_one_ball`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `move_one_ball(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `move_one_ball`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     if len(arr)==0:
       return True
     sorted_array=sorted(arr)
@@ -659,31 +821,26 @@ def test_shape_only_example():
     return True
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_109.py`  •  Target function: `move_one_ball`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `move_one_ball(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `move_one_ball`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     if len(arr)==0:
       return True
     sorted_array=sorted(arr)
@@ -698,122 +855,128 @@ def test_shape_only_example():
     return True
 
 
-### Response
+### Response:
 ```python
 import pytest
+from your_module import your_function  # replace with your actual module and function
 
-def move_one_ball(arr):
-    if len(arr)==0:
-      return True
-    sorted_array=sorted(arr)
-    my_arr=[]
-    
-    min_value=min(arr)
-    min_index=arr.index(min_value)
-    my_arr=arr[min_index:]+arr[0:min_index]
-    for i in range(len(arr)):
-      if my_arr[i]
-```
-```python
-def test_move_one_ball_empty():
-    assert move_one_ball([]) == True
+def test_empty_input():
+    assert your_function([]) == True
 
-def test_move_one_ball_single_element():
-    assert move_one_ball([1]) == True
+def test_single_element():
+    assert your_function([5]) == True
 
-def test_move_one_ball_multiple_elements():
-    assert move_one_ball([3, 2, 1, 4, 5]) == True
-    assert move_one_ball([1, 2, 3, 4, 5]) == False
+def test_sorted_array():
+    assert your_function([1, 2, 3, 4, 5]) == True
 
-def test_move_one_ball_negative_numbers():
-    assert move_one_ball([-1, -2, -3, -4, -5]) == True
-    assert move_one_ball([1, -2, 3, -4, 5]) == False
+def test_reversed_array():
+    assert your_function([5, 4, 3, 2, 1]) == True
 
-def test_move_one_ball_duplicates():
-    assert move_one_ball([1, 1, 1, 1, 1]) == True
-    assert move_one_ball([1, 2, 2, 3, 4]) == False
+def test_negative_numbers():
+    assert your_function([-5, -4, -3, -2, -1]) == True
+
+def test_zero():
+    assert your_function([0, 0, 0, 0]) == True
+
+def test_negative_positive_mixed():
+    assert your_function([-5, -4, 3, 2, 1]) == True
+
+def test_duplicates():
+    assert your_function([1, 2, 2, 1]) == True
+
+def test_non_rotation():
+    assert your_function([1, 2, 3, 4]) == False
+
+def test_large_input():
+    large_array = list(range(1, 10**6 + 1))
+    assert your_function(large_array) == True
+
+def test_large_input_reversed():
+    large_array = list(range(10**6, 0, -1))
+    assert your_function(large_array) == True
 ```
-```python
-def test_move_one_ball_error():
-    with pytest.raises(TypeError):
-        move_one_ball(None)
-    with pytest.raises(TypeError):
-        move_one_ball("string")
-    with pytest.raises(TypeError):
-        move_one_ball(12345)
-```
-```python
-def test_move_one_ball_edge_cases():
-    assert move_one_ball([1, 2, 3, 4, 5, 1]) == True
-    assert move_one_ball([5, 4, 3, 2, 1]) == True
-    assert move_one_ball([1, 5, 4, 3, 2]) == False
-```
-```python
-def test_move_one_ball_boundary_conditions():
-    assert move_one_ball([1]) == True
-    assert move_one_ball([1, 2]) == True
-    assert move_one_ball([2, 1]) == True
-    assert move_one_ball([1, 2, 3]) == True
-    assert move_one_ball([3, 2, 1]) == True
-```
-```python
-def test_move_one_ball_large_input():
-    large_input = list(range(1, 10**6 + 1))
-    assert move_one_ball(large_input) == True
-```
-```python
-def test_move_one_ball_large_input_reversed():
-    large_input = list(range(10**6, 0, -1))
-    assert move_one_ball(large_input) == True
-```
-```python
-def test_move_one_ball_large_input_random():
-    large_input = [10**6 - i for i in range(10**6)]
-    assert move_one_ball(large_input) == True
-```
-```python
-def test_move_one_ball_large_input_random_reversed():
-    large_input = [i for i in range(10**6, 0, -1)]
-    assert move_one_ball(large_input) == True
-```
-```python
-def test_move_one_ball_large_input_random_shuffled():
-    large_input = [i for i in range(1, 10**6 + 1)]
-    random.shuffle(large_input)
-    assert move_one_ball(large_input) == True
-```
-```python
-def test_move_one_ball_large_input_random_shuffled_reversed():
-    large_input = [i for i in range(10**6, 0, -1)]
 
 coverage:
-8.333333333333334
-test code to visualize output: ...
+100.0
+test code to visualize output:     import math
+
+    def is_prime(p):
+        if p < 2:
+            return False
+        for k in range(2, min(int(math.sqrt(p)) + 1, p - 1)):
+            if p % k == 0:
+                return False
+        return True
+    f = [0, 1]
+    while True:
+        f.append(f[-1] + f[-2])
+        if is_prime(f[-1]):
+            n -= 1
+        if n == 0:
+            return f[-1]
+
+
+### Response:
+```python
+import pytest
+from your_module import is_prime
+
+def test_is_prime_negative():
+    assert not is_prime(-1)
+    assert not is_prime(-10)
+
+def test_is_prime_zero_and_one():
+    assert not is_prime(0)
+    assert not is_prime(1)
+
+def test_is_prime_small_numbers():
+    assert is_prime(2)
+    assert is_prime(3)
+    assert not is_prime(4)
+    assert is_prime(5)
+
+def test_is_prime_large_numbers():
+    assert not is_prime(15485863)
+    assert is_prime(15485867)
+
+def test_is_prime_edge_cases():
+    assert not is_prime(2**31 - 1)
+    assert not is_prime(2**63 - 1)
+
+def test_is_prime_boundary_conditions():
+    assert is_prime(2**31)
+    assert is_prime(2**63)
+
+def test_is_prime_normal_cases():
+    assert is_prime(101)
+    assert not is_prime(100)
+
+def test_is_prime_large_numbers_2():
+    assert is_prime(1000000007)
+    assert not is_prime(1000000008)
+
+def test_is_prime_large_numbers_3():
+    assert is_prime(1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
 Task_ID HumanEval/39:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_39.py`  •  Target function: `prime_fib`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `prime_fib(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `prime_fib`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     import math
 
     def is_prime(p):
@@ -832,31 +995,26 @@ def test_shape_only_example():
             return f[-1]
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_39.py`  •  Target function: `prime_fib`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `prime_fib(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `prime_fib`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     import math
 
     def is_prime(p):
@@ -875,101 +1033,120 @@ def test_shape_only_example():
             return f[-1]
 
 
-### Response
+### Response:
 ```python
 import pytest
-from HumanEval_39 import prime_fib
+from your_module import is_prime
 
-def test_prime_fib_1():
-    assert prime_fib(1) == 2
+def test_is_prime_negative():
+    assert not is_prime(-1)
+    assert not is_prime(-10)
 
-def test_prime_fib_2():
-    assert prime_fib(2) == 3
+def test_is_prime_zero_and_one():
+    assert not is_prime(0)
+    assert not is_prime(1)
 
-def test_prime_fib_3():
-    assert prime_fib(3) == 5
+def test_is_prime_small_numbers():
+    assert is_prime(2)
+    assert is_prime(3)
+    assert not is_prime(4)
+    assert is_prime(5)
 
-def test_prime_fib_4():
-    assert prime_fib(4) == 8
+def test_is_prime_large_numbers():
+    assert not is_prime(15485863)
+    assert is_prime(15485867)
 
-def test_prime_fib_5():
-    assert prime_fib(5) == 13
+def test_is_prime_edge_cases():
+    assert not is_prime(2**31 - 1)
+    assert not is_prime(2**63 - 1)
 
-def test_prime_fib_6():
-    assert prime_fib(6) == 21
+def test_is_prime_boundary_conditions():
+    assert is_prime(2**31)
+    assert is_prime(2**63)
 
-def test_prime_fib_7():
-    assert prime_fib(7) == 34
+def test_is_prime_normal_cases():
+    assert is_prime(101)
+    assert not is_prime(100)
 
-def test_prime_fib_8():
-    assert prime_fib(8) == 55
+def test_is_prime_large_numbers_2():
+    assert is_prime(1000000007)
+    assert not is_prime(1000000008)
 
-def test_prime_fib_9():
-    assert prime_fib(9) == 89
-
-def test_prime_fib_10():
-    assert prime_fib(10) == 144
-
-def test_prime_fib_11():
-    assert prime_fib(11) == 233
-
-def test_prime_fib_12():
-    assert prime_fib(12) == 377
-
-def test_prime_fib_13():
-    assert prime_fib(13) == 610
-
-def test_prime_fib_14():
-    assert prime_fib(14) == 987
-
-def test_prime_fib_15():
-    assert prime_fib(15) == 1597
-
-def test_prime_fib_16():
-    assert prime_fib(16) == 2584
-
-def test_prime_fib_17():
-    assert prime_fib(17) == 4181
-
-def test_prime_fib_18():
-    assert prime_fib(18) == 6765
-
-def test_prime_fib_19():
-    assert prime_fib(19) == 10946
-
-def test_prime_fib_20():
-    assert prime_fib(20) == 17711
-```
-This test suite covers the first 20 prime Fibonacci numbers. You can add more tests for larger inputs or edge cases as needed.
-
+def test_is_prime_large_numbers_3():
+    assert is_prime(1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 coverage:
 6.25
-test code to visualize output: ...
+test code to visualize output: import pytest
+
+def check_balance(operations):
+    balance = 0
+
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
+
+    return False
+
+def test_empty_input():
+    assert check_balance([]) == False
+
+def test_zero():
+    assert check_balance([0]) == False
+
+def test_negative():
+    assert check_balance([-1]) == True
+
+def test_none():
+    with pytest.raises(TypeError):
+        check_balance(None)
+
+def test_boundary_conditions():
+    assert check_balance([1000000]) == False
+
+def test_normal_cases():
+    assert check_balance([1, 2, 3]) == False
+
+def test_edge_cases():
+    assert check_balance([1, -2, 3]) == True
+
+def test_multiple_operations():
+    assert check_balance([1, -2, 3, 4, -5, 6]) == True
+
+def test_large_numbers():
+    assert check_balance([1000000, -2000000, 3000000]) == False
+
+def test_negative_numbers():
+    assert check_balance([-1, -2, -3]) == True
+
+def test_zero_balance():
+    assert check_balance([1, -1]) == False
+
+def test_negative_balance():
+    assert check_balance([1, -2, -3]) == True
+
+def test_positive_balance():
+    assert check_balance([1, 2, 3]) == False
 
 Task_ID HumanEval/3:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_3.py`  •  Target function: `below_zero`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `below_zero(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `below_zero`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     balance = 0
 
     for op in operations:
@@ -980,31 +1157,26 @@ def test_shape_only_example():
     return False
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_3.py`  •  Target function: `below_zero`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `below_zero(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `below_zero`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     balance = 0
 
     for op in operations:
@@ -1015,753 +1187,575 @@ def test_shape_only_example():
     return False
 
 
-### Response
+### Response:
 ```python
-def test_below_zero():
-    assert below_zero([10, -20, 30, -40]) is True
+import pytest
 
-def test_below_zero_empty():
-    assert below_zero([]) is False
+def check_balance(operations):
+    balance = 0
 
-def test_below_zero_none():
-    assert below_zero(None) is False
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
 
-def test_below_zero_negative():
-    assert below_zero([-1, -2, -3, -4]) is False
+    return False
 
-def test_below_zero_normal():
-    assert below_zero([1, 2, 3, 4]) is False
+def test_empty_input():
+    assert check_balance([]) == False
 
-def test_below_zero_error():
+def test_zero():
+    assert check_balance([0]) == False
+
+def test_negative():
+    assert check_balance([-1]) == True
+
+def test_none():
     with pytest.raises(TypeError):
-        below_zero("not a list")
+        check_balance(None)
+
+def test_boundary_conditions():
+    assert check_balance([1000000]) == False
+
+def test_normal_cases():
+    assert check_balance([1, 2, 3]) == False
+
+def test_edge_cases():
+    assert check_balance([1, -2, 3]) == True
+
+def test_multiple_operations():
+    assert check_balance([1, -2, 3, 4, -5, 6]) == True
+
+def test_large_numbers():
+    assert check_balance([1000000, -2000000, 3000000]) == False
+
+def test_negative_numbers():
+    assert check_balance([-1, -2, -3]) == True
+
+def test_zero_balance():
+    assert check_balance([1, -1]) == False
+
+def test_negative_balance():
+    assert check_balance([1, -2, -3]) == True
+
+def test_positive_balance():
+    assert check_balance([1, 2, 3]) == False
 ```
-```
-```
-```python
-def test_below_zero_boundary():
-    assert below_zero([10**6, -10**6, 10**6, -10**6]) is True
 
-def test_below_zero_edge():
-    assert below_zero([0, 1, -1, 0]) is False
-
-def test_below_zero_large_numbers():
-    assert below_zero([10**9, -10**9, 10**9, -10**9]) is True
-
-def test_below_zero_zero():
-    assert below_zero([0, 0, 0, 0]) is False
-
-def test_below_zero_negative_zero():
-    assert below_zero([0, -1, 1, 0]) is False
-```
-```
-```python
-def test_below_zero_float():
-    assert below_zero([1.5, -1.5, 1.5, -1.5]) is True
-
-def test_below_zero_negative_float():
-    assert below_zero([-1.5, -1.5, -1.5, -1.5]) is False
-
-def test_below_zero_zero_float():
-    assert below_zero([0.0, 0.0, 0.0, 0.0]) is False
-
-def test_below_zero_negative_zero_float():
-    assert below_zero([0.0, -1.5, 1.5, 0.0]) is False
-```
-```
-```python
-def test_below_zero_large_float():
-    assert below_zero([10**6.5, -10**6.5, 10**6.5, -10**6.5]) is True
-
-def test_below_zero_small_float():
-    assert below_zero([10**-6.5, -10**-6.5, 10**-6.5, -10**-6.5]) is False
-
-def test_below_zero_negative_float_zero():
-    assert below_zero([0.0, -1.5, 1.5, 0.0]) is False
-
-def test_below_zero_negative_float_large():
-    assert below_zero([-10**6.5, -10**6.5, -10**6.5, -10**6.5]) is False
-```
-```
-```python
-def test_below_zero_negative_float_small():
-    assert below_zero([-10**-6.5, -10**-6.5, -10**-6.5, -10**-6.5]) is False
-
-def test_below_zero_negative_float_negative_zero():
-    assert below_zero([0.0, -10**-6.5, 10**-6.5, 0.0]) is False
-
-def test_below_zero_negative_float_negative_large():
-    assert below_zero([-10**6.5, -10**6.5, -10**6.5, -10**6.5]) is False
-```
-```
-```python
-def test_below_zero_negative_float_negative_small():
-    assert below_zero([-10**-6.5, -10**-6.5, -10**-6.5, -10**-6.5]) is False
-
-def test_below_zero_negative_float_negative_negative_zero():
-    assert below_zero([
 coverage:
-25.0
-test code to visualize output: ...
+100.0
+test code to visualize output: import pytest
+from your_module import your_function  # replace with your actual module and function
+
+def test_empty_input():
+    s = ""
+    c = ""
+    result = your_function(s, c)
+    assert result == ("", True)
+
+def test_no_char_removed():
+    s = "hello"
+    c = "world"
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_all_char_removed():
+    s = "hello"
+    c = "helo"
+    result = your_function(s, c)
+    assert result == ("", True)
+
+def test_one_char_removed():
+    s = "hello"
+    c = "eo"
+    result = your_function(s, c)
+    assert result == ("hl", False)
+
+def test_zero():
+    s = "hello"
+    c = "0"
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_negative_numbers():
+    s = "hello"
+    c = "-1"
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_none():
+    s = "hello"
+    c = None
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_boundary_conditions():
+    s = "a" * 1000
+    c = "a" * 999
+    result = your_function(s, c)
+    assert result == ("a", True)
+
+def test_normal_cases():
+    s = "hello"
+    c = "eo"
+    result = your_function(s, c)
+    assert result == ("hl", False)
+
+def test_large_input():
+    s = "a" * 1000000
+    c = "a" * 500000
+    result = your_function(s, c)
+    assert result == ("a" * 500000, True)
+
+def test_large_input_no_char_removed():
+    s = "a" * 1000000
+    c = ""
+    result = your_function(s, c)
+    assert result == ("a" * 1000000, True)
 
 Task_ID HumanEval/112:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_112.py`  •  Target function: `reverse_delete`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `reverse_delete(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `reverse_delete`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     s = ''.join([char for char in s if char not in c])
     return (s,s[::-1] == s)
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_112.py`  •  Target function: `reverse_delete`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `reverse_delete(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `reverse_delete`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     s = ''.join([char for char in s if char not in c])
     return (s,s[::-1] == s)
 
 
-### Response
+### Response:
 ```python
-def test_reverse_delete():
-    assert reverse_delete('abc', 'b') == ('ac', False)
-    assert reverse_delete('abc', 'c') == ('ab', True)
-    assert reverse_delete('abc', 'd') == ('abc', False)
-    assert reverse_delete('', 'a') == ('', False)
-    assert reverse_delete('abc', '') == ('abc', False)
-    assert reverse_delete(None, 'a') == (None, False)
-    assert reverse_delete('abc', None) == ('abc', False)
-    assert reverse_delete('abcd', 'dc') == ('ab', True)
-    assert reverse_delete('abcd', 'ad') == ('bc', False)
-    assert reverse_delete('abcd', 'bd') == ('ac', False)
-    assert reverse_delete('abcd', 'abc') == ('d', False)
-    assert reverse_delete('abcd', 'dab') == ('c', False)
-    assert reverse_delete('abcd', 'cd') == ('ab', False)
-    assert reverse_delete('abcd', 'bad') == ('cd', False)
-    assert reverse_delete('abcd', 'badc') == ('', True)
+import pytest
+from your_module import your_function  # replace with your actual module and function
+
+def test_empty_input():
+    s = ""
+    c = ""
+    result = your_function(s, c)
+    assert result == ("", True)
+
+def test_no_char_removed():
+    s = "hello"
+    c = "world"
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_all_char_removed():
+    s = "hello"
+    c = "helo"
+    result = your_function(s, c)
+    assert result == ("", True)
+
+def test_one_char_removed():
+    s = "hello"
+    c = "eo"
+    result = your_function(s, c)
+    assert result == ("hl", False)
+
+def test_zero():
+    s = "hello"
+    c = "0"
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_negative_numbers():
+    s = "hello"
+    c = "-1"
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_none():
+    s = "hello"
+    c = None
+    result = your_function(s, c)
+    assert result == ("hello", False)
+
+def test_boundary_conditions():
+    s = "a" * 1000
+    c = "a" * 999
+    result = your_function(s, c)
+    assert result == ("a", True)
+
+def test_normal_cases():
+    s = "hello"
+    c = "eo"
+    result = your_function(s, c)
+    assert result == ("hl", False)
+
+def test_large_input():
+    s = "a" * 1000000
+    c = "a" * 500000
+    result = your_function(s, c)
+    assert result == ("a" * 500000, True)
+
+def test_large_input_no_char_removed():
+    s = "a" * 1000000
+    c = ""
+    result = your_function(s, c)
+    assert result == ("a" * 1000000, True)
 ```
-
-### Explanation
-The function `reverse_delete` takes two strings as input: `s` and `c`. It returns a tuple where the first element is a string where all characters in `c` are removed from `s`, and the second element is a boolean indicating whether the reversed string is equal to the first element.
-
-The tests cover a variety of cases, including normal cases, edge cases (empty/None strings), and error cases (strings where some characters in `c` are not in `s`).
-
-The tests also cover some special cases where multiple characters in `c` are removed from `s`, and the string is reversed.
-
-The tests use `==` to compare the output of `reverse_delete` with the expected output. If the output is not as expected, the test will fail.
-
-The tests use `assert` to check if the output of `reverse_delete` is as expected. If the output is not as expected, the test will fail.
-
-The tests use `pytest.approx` to compare floats. If the two floats are approximately equal (within a small tolerance), the test will pass.
-
-The tests use `with pytest.raises(Exception)` to check if a certain exception is raised when calling a function. If the exception is not raised, the test will fail.
-
-The tests use `pytest.mark.parametrize` to run the same test with different inputs. This is useful for reducing code duplication and making the tests more readable.
-
-The tests use `is True` and `is False` to check if a value is True or False. This is more readable than `== True` or `== False`.
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 coverage:
 33.333333333333336
-test code to visualize output: ...
+test code to visualize output: import pytest
+
+def test_positive_positive():
+    assert abs(15 % 10) * abs(20 % 10) == 100
+
+def test_positive_negative():
+    assert abs(15 % 10) * abs(-20 % 10) == 100
+
+def test_negative_positive():
+    assert abs(-15 % 10) * abs(20 % 10) == 100
+
+def test_negative_negative():
+    assert abs(-15 % 10) * abs(-20 % 10) == 100
+
+def test_zero_positive():
+    assert abs(0 % 10) * abs(20 % 10) == 0
+
+def test_positive_zero():
+    assert abs(15 % 10) * abs(0 % 10) == 0
+
+def test_zero_zero():
+    assert abs(0 % 10) * abs(0 % 10) == 0
+
+def test_zero_negative():
+    assert abs(0 % 10) * abs(-20 % 10) == 0
+
+def test_negative_zero():
+    assert abs(-15 % 10) * abs(0 % 10) == 0
+
+def test_large_positive():
+    assert abs(1234567890 % 10) * abs(9876543210 % 10) == 9671406440
+
+def test_large_negative():
+    assert abs(-1234567890 % 10) * abs(9876543210 % 10) == 9671406440
+
+def test_negative_large():
+    assert abs(-1234567890 % 10) * abs(-9876543210 % 10) == 9671406440
+
+def test_large_zero():
+    assert abs(1234567890 % 10) * abs(0 % 10) == 0
+
+def test_zero_large():
+    assert abs(0 % 10) * abs(9876543210 % 10) == 0
+
+def test_large_large():
+    assert abs(1234567890 % 10) * abs(9876543210 % 10) == 9671406440
 
 Task_ID HumanEval/97:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_97.py`  •  Target function: `multiply`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `multiply(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `multiply`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     return abs(a % 10) * abs(b % 10)
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_97.py`  •  Target function: `multiply`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `multiply(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `multiply`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     return abs(a % 10) * abs(b % 10)
 
 
-### Response
+### Response:
 ```python
-def test_multiply():
-    assert multiply(2, 3) == 6
-    assert multiply(2, -3) == -6
-    assert multiply(-2, 3) == -6
-    assert multiply(-2, -3) == 6
-    assert multiply(0, 3) == 0
-    assert multiply(2, 0) == 0
-    assert multiply(0, 0) == 0
-    assert multiply(10, 10) == 100
-    assert multiply(-10, -10) == 100
-    assert multiply(10, -10) == -100
-    assert multiply(-10, 10) == -100
+import pytest
+
+def test_positive_positive():
+    assert abs(15 % 10) * abs(20 % 10) == 100
+
+def test_positive_negative():
+    assert abs(15 % 10) * abs(-20 % 10) == 100
+
+def test_negative_positive():
+    assert abs(-15 % 10) * abs(20 % 10) == 100
+
+def test_negative_negative():
+    assert abs(-15 % 10) * abs(-20 % 10) == 100
+
+def test_zero_positive():
+    assert abs(0 % 10) * abs(20 % 10) == 0
+
+def test_positive_zero():
+    assert abs(15 % 10) * abs(0 % 10) == 0
+
+def test_zero_zero():
+    assert abs(0 % 10) * abs(0 % 10) == 0
+
+def test_zero_negative():
+    assert abs(0 % 10) * abs(-20 % 10) == 0
+
+def test_negative_zero():
+    assert abs(-15 % 10) * abs(0 % 10) == 0
+
+def test_large_positive():
+    assert abs(1234567890 % 10) * abs(9876543210 % 10) == 9671406440
+
+def test_large_negative():
+    assert abs(-1234567890 % 10) * abs(9876543210 % 10) == 9671406440
+
+def test_negative_large():
+    assert abs(-1234567890 % 10) * abs(-9876543210 % 10) == 9671406440
+
+def test_large_zero():
+    assert abs(1234567890 % 10) * abs(0 % 10) == 0
+
+def test_zero_large():
+    assert abs(0 % 10) * abs(9876543210 % 10) == 0
+
+def test_large_large():
+    assert abs(1234567890 % 10) * abs(9876543210 % 10) == 9671406440
 ```
-
-### Explanation
-This test suite covers a variety of cases, including edge cases (0, negative numbers), boundary conditions (10, -10), and normal cases (positive numbers). It also includes a test for the case where both inputs are 0.
-
-The function `multiply` is expected to return the product of the absolute values of the modulo 10 of the inputs, which is equivalent to the product of the last digits of the inputs. For example, `multiply(2, 3)` should return `6` because `2 % 10` is `2` and `3 % 10` is `3`, and `2 * 3` is `6`.
-
-The test suite does not include a test for error handling because the function `multiply` does not have any error handling. If it did, the test suite would include a test that checks for the appropriate exception or error message.
 
 coverage:
 50.0
-test code to visualize output: ...
+test code to visualize output: import pytest
+from your_module import your_function  # replace with your actual module and function
+
+def test_empty_inputs():
+    assert your_function([], []) == []
+
+def test_zero_values():
+    assert your_function([0, 0, 0], [0, 0, 0]) == [0, 0, 0]
+
+def test_negative_numbers():
+    assert your_function([-1, -2, -3], [1, 2, 3]) == [2, 4, 6]
+
+def test_none_values():
+    with pytest.raises(TypeError):
+        your_function(None, None)
+
+def test_boundary_conditions():
+    assert your_function([10, 10, 10], [0, 5, 10]) == [10, 5, 10]
+
+def test_normal_cases():
+    assert your_function([5, 10, 15], [0, 5, 10]) == [5, 5, 15]
+
+def test_unequal_lengths():
+    assert your_function([1, 2, 3], [1, 2]) == [0, 1]
+
+def test_single_element():
+    assert your_function([1], [1]) == [0]
+
+def test_large_inputs():
+    game = list(range(1, 1001))
+    guess = list(range(1001, 2001))
+    assert your_function(game, guess) == [1000]*1000
+
+def test_large_negative_inputs():
+    game = list(range(-1000, 0))
+    guess = list(range(-999, 0))
+    assert your_function(game, guess) == [1]*1000
+
+def test_mixed_negative_and_positive_inputs():
+    game = [-1, 2, -3, 4]
+    guess = [1, -2, 3, -4]
+    assert your_function(game, guess) == [2, 5, 7, 8]
 
 Task_ID HumanEval/152:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_152.py`  •  Target function: `compare`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `compare(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `compare`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     return [abs(x-y) for x,y in zip(game,guess)]
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_152.py`  •  Target function: `compare`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `compare(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `compare`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     return [abs(x-y) for x,y in zip(game,guess)]
 
 
-### Response
+### Response:
 ```python
 import pytest
-from HumanEval_152 import compare
+from your_module import your_function  # replace with your actual module and function
 
-def test_compare_empty_input():
-    assert compare([], []) == []
+def test_empty_inputs():
+    assert your_function([], []) == []
 
-def test_compare_normal_case():
-    assert compare([1, 2, 3], [1, 2, 3]) == [0, 0, 0]
+def test_zero_values():
+    assert your_function([0, 0, 0], [0, 0, 0]) == [0, 0, 0]
 
-def test_compare_negative_numbers():
-    assert compare([1, -2, 3], [-1, 2, -3]) == [2, 0, 6]
+def test_negative_numbers():
+    assert your_function([-1, -2, -3], [1, 2, 3]) == [2, 4, 6]
 
-def test_compare_different_lengths():
-    assert compare([1, 2, 3, 4], [1, 2]) == [0, 0]
-
-def test_compare_error_path():
+def test_none_values():
     with pytest.raises(TypeError):
-        compare(1, 2)
+        your_function(None, None)
 
-def test_compare_error_path_2():
-    with pytest.raises(TypeError):
-        compare([1, 2], [1, 2, 3])
+def test_boundary_conditions():
+    assert your_function([10, 10, 10], [0, 5, 10]) == [10, 5, 10]
 
-def test_compare_error_path_3():
-    with pytest.raises(TypeError):
-        compare([1, 2, 'a'], [1, 2, 3])
+def test_normal_cases():
+    assert your_function([5, 10, 15], [0, 5, 10]) == [5, 5, 15]
 
-def test_compare_error_path_4():
-    with pytest.raises(TypeError):
-        compare([1, 2, 3], [1, 2, 'a'])
+def test_unequal_lengths():
+    assert your_function([1, 2, 3], [1, 2]) == [0, 1]
+
+def test_single_element():
+    assert your_function([1], [1]) == [0]
+
+def test_large_inputs():
+    game = list(range(1, 1001))
+    guess = list(range(1001, 2001))
+    assert your_function(game, guess) == [1000]*1000
+
+def test_large_negative_inputs():
+    game = list(range(-1000, 0))
+    guess = list(range(-999, 0))
+    assert your_function(game, guess) == [1]*1000
+
+def test_mixed_negative_and_positive_inputs():
+    game = [-1, 2, -3, 4]
+    guess = [1, -2, 3, -4]
+    assert your_function(game, guess) == [2, 5, 7, 8]
 ```
-This test suite covers a variety of cases including normal cases, edge cases (empty inputs), error paths (incorrect input types), and boundary conditions (different lengths of input lists).
 
 coverage:
-50.0
-test code to visualize output: ...
+100.0
+test code to visualize output: import pytest
+
+def count_primes(num):
+    primes = ('2', '3', '5', '7', 'B', 'D')
+    total = 0
+    for i in range(0, len(num)):
+        if num[i] in primes:
+            total += 1
+    return total
+
+def test_count_primes():
+    assert count_primes('2357BD') == 6
+    assert count_primes('2357B') == 5
+    assert count_primes('2357BD2357BD') == 12
+    assert count_primes('') == 0
+    assert count_primes('0148623579') == 3
+    assert count_primes('-2357BD') == 0
+    assert count_primes('None') == 0
+    assert count_primes('2357BD2357BD2357BD2357BD') == 16
+    assert count_primes('2357BD2357BD2357BD2357BD2357BD2357BD') == 20
+    assert count_primes('2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD') == 24
+    assert count_primes('2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD23
 
 Task_ID HumanEval/78:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_78.py`  •  Target function: `hex_key`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `hex_key(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `hex_key`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     primes = ('2', '3', '5', '7', 'B', 'D')
     total = 0
     for i in range(0, len(num)):
@@ -1770,31 +1764,26 @@ def test_shape_only_example():
     return total
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_78.py`  •  Target function: `hex_key`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `hex_key(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `hex_key`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     primes = ('2', '3', '5', '7', 'B', 'D')
     total = 0
     for i in range(0, len(num)):
@@ -1803,9 +1792,11 @@ def test_shape_only_example():
     return total
 
 
-### Response
+### Response:
 ```python
-def hex_key(num):
+import pytest
+
+def count_primes(num):
     primes = ('2', '3', '5', '7', 'B', 'D')
     total = 0
     for i in range(0, len(num)):
@@ -1813,174 +1804,225 @@ def hex_key(num):
             total += 1
     return total
 
-def test_hex_key():
-    assert hex_key('2345') == 3
-    assert hex_key('2345789BDF') == 6
-    assert hex_key('12486') == 0
-    assert hex_key('') == 0
-    assert hex_key(None) == 0
-    assert hex_key('-2345') == 0
-```
-This test suite includes normal cases, edge cases, and error cases. It tests the function with different inputs to ensure it behaves as expected.
-
-The function `hex_key` is expected to count the number of occurrences of certain hexadecimal digits in a string. The test cases include strings with these digits, strings without them, empty strings, `None`, and negative numbers.
-
-The function `hex_key` should return 0 for edge cases where the input is `None` or an empty string. For normal cases, it should return the correct count of the specified digits.
-
-The test suite does not include tests for error cases because the function `hex_key` does not have any error paths. If it did, we would add tests to ensure it handles these cases correctly.
-
+def test_count_primes():
+    assert count_primes('2357BD') == 6
+    assert count_primes('2357B') == 5
+    assert count_primes('2357BD2357BD') == 12
+    assert count_primes('') == 0
+    assert count_primes('0148623579') == 3
+    assert count_primes('-2357BD') == 0
+    assert count_primes('None') == 0
+    assert count_primes('2357BD2357BD2357BD2357BD') == 16
+    assert count_primes('2357BD2357BD2357BD2357BD2357BD2357BD') == 20
+    assert count_primes('2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD') == 24
+    assert count_primes('2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD2357BD23
 coverage:
 14.285714285714286
-test code to visualize output: ...
+test code to visualize output: import pytest
+from your_module import function_to_test  # replace with your actual module and function
+
+def test_empty_input():
+    assert function_to_test([]) is None
+
+def test_single_element():
+    assert function_to_test([5]) == 0
+
+def test_negative_numbers():
+    assert function_to_test([-1, -2, -3]) == 2
+
+def test_zero():
+    assert function_to_test([0, 0, 0]) == 0
+
+def test_positive_numbers():
+    assert function_to_test([1, 2, 3]) == 1
+
+def test_mixed_numbers():
+    assert function_to_test([1, -2, 3]) == 2
+
+def test_large_numbers():
+    assert function_to_test([1e6, 2e6, 3e6]) == 1e6
+
+def test_small_numbers():
+    assert function_to_test([1e-6, 2e-6, 3e-6]) == 1e-6
+
+def test_none_input():
+    assert function_to_test(None) is None
+
+def test_non_numeric_input():
+    with pytest.raises(TypeError):
+        function_to_test(['a', 'b', 'c'])
+
+def test_large_input():
+    numbers = list(range(1, 1001))
+    assert function_to_test(numbers) == 500.5
+
+def test_small_input():
+    numbers = list(range(1, 11))
+    assert function_to_test(numbers) == 3.3027756377319946
 
 Task_ID HumanEval/4:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_4.py`  •  Target function: `mean_absolute_deviation`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `mean_absolute_deviation(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `mean_absolute_deviation`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     mean = sum(numbers) / len(numbers)
     return sum(abs(x - mean) for x in numbers) / len(numbers)
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_4.py`  •  Target function: `mean_absolute_deviation`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `mean_absolute_deviation(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `mean_absolute_deviation`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     mean = sum(numbers) / len(numbers)
     return sum(abs(x - mean) for x in numbers) / len(numbers)
 
 
-### Response
+### Response:
 ```python
 import pytest
-from HumanEval_4 import mean_absolute_deviation
+from your_module import function_to_test  # replace with your actual module and function
 
-def test_mean_absolute_deviation_empty():
-    assert mean_absolute_deviation([]) == 0
+def test_empty_input():
+    assert function_to_test([]) is None
 
-def test_mean_absolute_deviation_single_value():
-    assert mean_absolute_deviation([5]) == 0
+def test_single_element():
+    assert function_to_test([5]) == 0
 
-def test_mean_absolute_deviation_negative_values():
-    assert mean_absolute_deviation([-1, -2, -3]) == 2
+def test_negative_numbers():
+    assert function_to_test([-1, -2, -3]) == 2
 
-def test_mean_absolute_deviation_positive_values():
-    assert mean_absolute_deviation([1, 2, 3]) == 2
+def test_zero():
+    assert function_to_test([0, 0, 0]) == 0
 
-def test_mean_absolute_deviation_normal_case():
-    assert mean_absolute_deviation([1, 2, 3, 4, 5]) == pytest.approx(1.8333333333333333)
+def test_positive_numbers():
+    assert function_to_test([1, 2, 3]) == 1
 
-def test_mean_absolute_deviation_large_numbers():
-    assert mean_absolute_deviation([1e6, 2e6, 3e6]) == 2e6
+def test_mixed_numbers():
+    assert function_to_test([1, -2, 3]) == 2
 
-def test_mean_absolute_deviation_zero_deviation():
-    assert mean_absolute_deviation([1, 1, 1, 1]) == 0
+def test_large_numbers():
+    assert function_to_test([1e6, 2e6, 3e6]) == 1e6
 
-def test_mean_absolute_deviation_none():
+def test_small_numbers():
+    assert function_to_test([1e-6, 2e-6, 3e-6]) == 1e-6
+
+def test_none_input():
+    assert function_to_test(None) is None
+
+def test_non_numeric_input():
     with pytest.raises(TypeError):
-        mean_absolute_deviation(None)
+        function_to_test(['a', 'b', 'c'])
 
-def test_mean_absolute_deviation_string():
-    with pytest.raises(TypeError):
-        mean_absolute_deviation("string")
+def test_large_input():
+    numbers = list(range(1, 1001))
+    assert function_to_test(numbers) == 500.5
+
+def test_small_input():
+    numbers = list(range(1, 11))
+    assert function_to_test(numbers) == 3.3027756377319946
 ```
-This test suite covers a variety of cases including edge cases (empty list, single value), negative values, positive values, a normal case, large numbers, zero deviation, and error paths (None, string).
-It uses `pytest.approx` for float comparisons and `pytest.raises` to check for the appropriate exceptions being raised.
-It is important to note that the actual output of the mean absolute deviation function may vary depending on the specific implementation of the function.
-The test cases are designed to cover a wide range of scenarios to ensure that the function behaves as expected in all situations.
-The test suite is designed to be minimal and readable, with each test case focusing on a specific scenario.
-The test suite does not include file/network I/O, print statements, sleep calls, or randomness.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular testing framework for Python.
-The test suite is designed to be run with pytest, a popular
+
 coverage:
-50.0
-test code to visualize output: ...
+100.0
+test code to visualize output: import pytest
+from your_module import your_function  # replace with your actual module and function
+
+def test_empty_input():
+    assert your_function(0) == 0
+
+def test_negative_input():
+    assert your_function(-1) == 0
+
+def test_zero():
+    assert your_function(0) == 0
+
+def test_small_input():
+    assert your_function(10) == 1  # '7' appears once in 0, 7, 10
+
+def test_large_input():
+    assert your_function(100) == 5  # '7' appears five times in 0, 7, 10, 17, 47, 70, 77, 84, 91, 98
+
+def test_boundary_input():
+    assert your_function(1000) == 11  # '7' appears eleven times in numbers that are multiples of 11 or 13
+
+def test_normal_input():
+    assert your_function(10000) == 153  # '7' appears 153 times in numbers that are multiples of 11 or 13
+
+def test_none_input():
+    with pytest.raises(TypeError):
+        your_function(None)
+
+def test_string_input():
+    with pytest.raises(TypeError):
+        your_function('abc')
+
+def test_list_input():
+    with pytest.raises(TypeError):
+        your_function([1, 2, 3])
+
+def test_dict_input():
+    with pytest.raises(TypeError):
+        your_function({'a': 1, 'b': 2})
+
+def test_float_input():
+    with pytest.raises(TypeError):
+        your_function(1.23)
+
+def test_negative_float_input():
+    assert your_function(-1.23) == 0
+
+def test_negative_large_input():
+    assert your_function(-10000) == 0
 
 Task_ID HumanEval/36:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_36.py`  •  Target function: `fizz_buzz`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `fizz_buzz(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `fizz_buzz`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     ns = []
     for i in range(n):
         if i % 11 == 0 or i % 13 == 0:
@@ -1992,31 +2034,26 @@ def test_shape_only_example():
     return ans
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_36.py`  •  Target function: `fizz_buzz`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `fizz_buzz(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `fizz_buzz`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     ns = []
     for i in range(n):
         if i % 11 == 0 or i % 13 == 0:
@@ -2028,198 +2065,200 @@ def test_shape_only_example():
     return ans
 
 
-### Response
+### Response:
 ```python
-def fizz_buzz(n):
-    ns = []
-    for i in range(n):
-        if i % 11 == 0 or i % 13 == 0:
-            ns.append(i)
-    s = ''.join(list(map(str, ns)))
-    ans = 0
-    for c in s:
-        ans += (c == '7')
-    return ans
+import pytest
+from your_module import your_function  # replace with your actual module and function
 
+def test_empty_input():
+    assert your_function(0) == 0
 
-def test_fizz_buzz():
-    assert fizz_buzz(100) == 1
-    assert fizz_buzz(1000) == 3
-    assert fizz_buzz(10000) == 11
-    assert fizz_buzz(100000) == 28
-    assert fizz_buzz(1000000) == 168
-    assert fizz_buzz(10000000) == 1357
-    assert fizz_buzz(100000000) == 10300
-    assert fizz_buzz(1000000000) == 78125
-    assert fizz_buzz(10000000000) == 610351
-    assert fizz_buzz(100000000000) == 4879094
-    assert fizz_buzz(1000000000000) == 39453508
-    assert fizz_buzz(10000000000000) == 319277056
-    assert fizz_buzz(100000000000000) == 2551082652
-    assert fizz_buzz(1000000000000000) == 20151128456
-    assert fizz_buzz(10000000000000000) == 158456325028
-    assert fizz_buzz(100000000000000000) == 1251677732488
-    assert fizz_buzz(1000000000000000000) == 1000000000000000000
+def test_negative_input():
+    assert your_function(-1) == 0
+
+def test_zero():
+    assert your_function(0) == 0
+
+def test_small_input():
+    assert your_function(10) == 1  # '7' appears once in 0, 7, 10
+
+def test_large_input():
+    assert your_function(100) == 5  # '7' appears five times in 0, 7, 10, 17, 47, 70, 77, 84, 91, 98
+
+def test_boundary_input():
+    assert your_function(1000) == 11  # '7' appears eleven times in numbers that are multiples of 11 or 13
+
+def test_normal_input():
+    assert your_function(10000) == 153  # '7' appears 153 times in numbers that are multiples of 11 or 13
+
+def test_none_input():
+    with pytest.raises(TypeError):
+        your_function(None)
+
+def test_string_input():
+    with pytest.raises(TypeError):
+        your_function('abc')
+
+def test_list_input():
+    with pytest.raises(TypeError):
+        your_function([1, 2, 3])
+
+def test_dict_input():
+    with pytest.raises(TypeError):
+        your_function({'a': 1, 'b': 2})
+
+def test_float_input():
+    with pytest.raises(TypeError):
+        your_function(1.23)
+
+def test_negative_float_input():
+    assert your_function(-1.23) == 0
+
+def test_negative_large_input():
+    assert your_function(-10000) == 0
 ```
-This test suite covers a range of inputs from 1 to 1000000000000000000. The function `fizz_buzz` counts the number of times the digit '7' appears in the string representation of numbers that are multiples of 11 or 13. The test cases are designed to cover a wide range of inputs to ensure that the function behaves correctly in all cases.
 
 coverage:
-10.0
-test code to visualize output: ...
+100.0
+test code to visualize output: import pytest
+
+def sum_and_bin(N):
+    return bin(sum(int(i) for i in str(N)))[2:]
+
+def test_sum_and_bin():
+    assert sum_and_bin(12345) == '110101'
+    assert sum_and_bin(9876543210) == '11110011010101011010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
 
 Task_ID HumanEval/84:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_84.py`  •  Target function: `solve`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `solve(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `solve`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     return bin(sum(int(i) for i in str(N)))[2:]
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_84.py`  •  Target function: `solve`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `solve(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `solve`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     return bin(sum(int(i) for i in str(N)))[2:]
 
 
-### Response
+### Response:
 ```python
 import pytest
 
-def solve(N):
+def sum_and_bin(N):
     return bin(sum(int(i) for i in str(N)))[2:]
 
-def test_solve():
-    assert solve(123) == '1111011'
-    assert solve(456) == '11100100'
-    assert solve(789) == '11101001'
-    assert solve(0) == '0'
-    assert solve(1) == '1'
-    assert solve(2) == '10'
-    assert solve(3) == '11'
-    assert solve(4) == '100'
-    assert solve(5) == '101'
-    assert solve(6) == '110'
-    assert solve(7) == '111'
-    assert solve(8) == '1000'
-    assert solve(9) == '1001'
-    assert solve(10) == '1010'
-    assert solve(11) == '1011'
-    assert solve(12) == '1100'
-    assert solve(13) == '1101'
-    assert solve(14) == '1110'
-    assert solve(15) == '1111'
-    assert solve(16) == '10000'
-    assert solve(17) == '10001'
-    assert solve(18) == '10010'
-    assert solve(19) == '10011'
-    assert solve(20) == '10100'
-    assert solve(21) == '10101'
-    assert solve(22) == '10110'
-    assert solve(23) == '10111'
-    assert solve(24) == '11000'
-    assert solve(25) == '11001'
-    assert solve(26) == '11010'
-    assert solve(27) == '11011'
-    assert solve(28) == '11100'
-    assert solve(29) == '11101'
-    assert solve(30) == '11110'
-    assert solve(31) == '11111'
-    assert solve(32) == '100000'
-    assert solve(33) == '100001'
-    assert solve(34) == '100010'
-    assert solve(35) == '100011'
-    assert solve(36) == '100100'
-    assert solve(37) == '100101'
-    assert solve(38) == '100110'
-    assert solve(39) == '100111'
-    assert solve(40) == '101000'
-    assert solve(41) == '101001'
-    assert solve(42) == '101010'
-    assert solve(43) == '101011'
-    assert solve(44) == '101100'
-    assert solve(45) == '101101'
-    assert solve(46) == '101110'
-    assert solve(47) == '101111'
-    assert solve(48) == '110000'
-    assert solve(49) == '110001'
-    assert solve(50) == '110010'
-    assert solve(51) == '110011'
-    assert solve(52) == '110100'
-    assert solve(53) == '110101'
-    assert solve(54) == '110110'
-    assert solve(55) == '110111'
-    assert solve(56) == '111000'
-    assert solve(57) == '111001'
-    assert solve(58) ==
+def test_sum_and_bin():
+    assert sum_and_bin(12345) == '110101'
+    assert sum_and_bin(9876543210) == '11110011010101011010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
 coverage:
 50.0
-test code to visualize output: ...
+test code to visualize output: import pytest
+
+def test_valid_inputs():
+    assert is_valid_triangle_sides(3, 4, 5) == True
+    assert is_valid_triangle_sides(5, 12, 13) == True
+    assert is_valid_triangle_sides(6, 8, 10) == True
+    assert is_valid_triangle_sides(7, 24, 25) == True
+    assert is_valid_triangle_sides(8, 15, 17) == True
+    assert is_valid_triangle_sides(9, 21, 25) == True
+    assert is_valid_triangle_sides(10, 24, 26) == True
+    assert is_valid_triangle_sides(12, 15, 20) == True
+    assert is_valid_triangle_sides(13, 26, 29) == True
+    assert is_valid_triangle_sides(15, 20, 25) == True
+
+def test_invalid_inputs():
+    assert is_valid_triangle_sides(1, 2, 3) == False
+    assert is_valid_triangle_sides(2, 3, 4) == False
+    assert is_valid_triangle_sides(3, 4, 6) == False
+    assert is_valid_triangle_sides(3, 5, 7) == False
+    assert is_valid_triangle_sides(4, 5, 9) == False
+    assert is_valid_triangle_sides(4, 6, 8) == False
+    assert is_valid_triangle_sides(5, 6, 9) == False
+    assert is_valid_triangle_sides(5, 7, 10) == False
+    assert is_valid_triangle_sides(6, 7, 11) == False
+    assert is_valid_triangle_sides(6, 8, 12) == False
+
+def test_non_integer_inputs():
+    assert is_valid_triangle_sides(1.5, 2, 3) == False
+    assert is_valid_triangle_sides(2, 3.5, 4) == False
+    assert is_valid_triangle_sides(3, 4, 6.5) == False
+    assert is_valid_triangle_sides(3.5, 5, 7) == False
+    assert is_valid_triangle_sides(4, 5.5, 9) == False
+    assert is_valid_triangle_sides(4.5, 6, 8) == False
+    assert is_valid_triangle_sides(5, 6.5, 9) == False
+    assert is_valid_triangle_sides(5.5, 7, 10) == False
+    assert is_valid_triangle_sides(6, 7.5, 11) == False
+    assert is_valid_triangle_sides(6.5, 8, 12) == False
+
+def test_negative_inputs():
+    assert is_valid_triangle_sides(-1, 2, 3) == False
+    assert is_valid_triangle_sides(1, -2, 3) == False
+    assert is_valid_triangle_sides(1, 2, -3) == False
+    assert is_valid_triangle_sides(-1, -2, 3) == False
+    assert is_valid_triangle_sides(-1, 2, -3) == False
+    assert is_valid_triangle_sides(1, -2, -3) == False
+    assert is_valid_triangle_sides(-1, -2, -3) == False
+
+def test_zero_inputs():
+    assert is_valid_triangle_sides(0, 2, 3) == False
+    assert is_valid_triangle_sides(1, 0, 3) == False
+    assert is_valid_triangle_sides(1, 2, 0) == False
+    assert is_valid_triangle_sides(0, 0, 3) == False
+    assert is_valid_triangle_sides(0, 2,
 
 Task_ID HumanEval/92:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_92.py`  •  Target function: `any_int`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `any_int(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `any_int`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     
     if isinstance(x,int) and isinstance(y,int) and isinstance(z,int):
         if (x+y==z) or (x+z==y) or (y+z==x):
@@ -2228,31 +2267,26 @@ def test_shape_only_example():
     return False
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_92.py`  •  Target function: `any_int`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `any_int(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `any_int`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     
     if isinstance(x,int) and isinstance(y,int) and isinstance(z,int):
         if (x+y==z) or (x+z==y) or (y+z==x):
@@ -2261,67 +2295,156 @@ def test_shape_only_example():
     return False
 
 
-### Response
+### Response:
 ```python
 import pytest
 
-def any_int(x, y, z):
-    if isinstance(x,int) and isinstance(y,int) and isinstance(z,int):
-        if (x+y==z) or (x+z==y) or (y+z==x):
-            return True
-        return False
-    return False
+def test_valid_inputs():
+    assert is_valid_triangle_sides(3, 4, 5) == True
+    assert is_valid_triangle_sides(5, 12, 13) == True
+    assert is_valid_triangle_sides(6, 8, 10) == True
+    assert is_valid_triangle_sides(7, 24, 25) == True
+    assert is_valid_triangle_sides(8, 15, 17) == True
+    assert is_valid_triangle_sides(9, 21, 25) == True
+    assert is_valid_triangle_sides(10, 24, 26) == True
+    assert is_valid_triangle_sides(12, 15, 20) == True
+    assert is_valid_triangle_sides(13, 26, 29) == True
+    assert is_valid_triangle_sides(15, 20, 25) == True
 
-def test_any_int_with_positive_integers():
-    assert any_int(3, 4, 7) is True
+def test_invalid_inputs():
+    assert is_valid_triangle_sides(1, 2, 3) == False
+    assert is_valid_triangle_sides(2, 3, 4) == False
+    assert is_valid_triangle_sides(3, 4, 6) == False
+    assert is_valid_triangle_sides(3, 5, 7) == False
+    assert is_valid_triangle_sides(4, 5, 9) == False
+    assert is_valid_triangle_sides(4, 6, 8) == False
+    assert is_valid_triangle_sides(5, 6, 9) == False
+    assert is_valid_triangle_sides(5, 7, 10) == False
+    assert is_valid_triangle_sides(6, 7, 11) == False
+    assert is_valid_triangle_sides(6, 8, 12) == False
 
-def test_any_int_with_negative_integers():
-    assert any_int(-1, -2, -3) is True
+def test_non_integer_inputs():
+    assert is_valid_triangle_sides(1.5, 2, 3) == False
+    assert is_valid_triangle_sides(2, 3.5, 4) == False
+    assert is_valid_triangle_sides(3, 4, 6.5) == False
+    assert is_valid_triangle_sides(3.5, 5, 7) == False
+    assert is_valid_triangle_sides(4, 5.5, 9) == False
+    assert is_valid_triangle_sides(4.5, 6, 8) == False
+    assert is_valid_triangle_sides(5, 6.5, 9) == False
+    assert is_valid_triangle_sides(5.5, 7, 10) == False
+    assert is_valid_triangle_sides(6, 7.5, 11) == False
+    assert is_valid_triangle_sides(6.5, 8, 12) == False
 
-def test_any_int_with_zero():
-    assert any_int(0, 0, 0) is True
+def test_negative_inputs():
+    assert is_valid_triangle_sides(-1, 2, 3) == False
+    assert is_valid_triangle_sides(1, -2, 3) == False
+    assert is_valid_triangle_sides(1, 2, -3) == False
+    assert is_valid_triangle_sides(-1, -2, 3) == False
+    assert is_valid_triangle_sides(-1, 2, -3) == False
+    assert is_valid_triangle_sides(1, -2, -3) == False
+    assert is_valid_triangle_sides(-1, -2, -3) == False
 
-def test_any_int_with_non_integer_inputs():
-    assert any_int(1, '2', 3) is False
-    assert any_int(1, 2.5, 3) is False
-    assert any_int(1, 2, '3') is False
-    assert any_int(1, 2, [3]) is False
-
-def test_any_int_with_empty_inputs():
-    assert any_int(None, None, None) is False
-    assert any_int('', '', '') is False
-    assert any_int([], [], []) is False
-```
-This test suite covers a variety of cases including positive integers, negative integers, zero, non-integer inputs, and empty inputs.
-
+def test_zero_inputs():
+    assert is_valid_triangle_sides(0, 2, 3) == False
+    assert is_valid_triangle_sides(1, 0, 3) == False
+    assert is_valid_triangle_sides(1, 2, 0) == False
+    assert is_valid_triangle_sides(0, 0, 3) == False
+    assert is_valid_triangle_sides(0, 2,
 coverage:
 16.666666666666668
-test code to visualize output: ...
+test code to visualize output: import pytest
+from your_module import your_function  # replace with your actual module and function
 
+def test_empty_input():
+    assert your_function(0) == 0
+
+def test_negative_input():
+    assert your_function(-5) == 0
+
+def test_none_input():
+    with pytest.raises(TypeError):
+        your_function(None)
+
+def test_zero_input():
+    assert your_function(0) == 0
+
+def test_small_input():
+    assert your_function(5) == 0
+
+def test_normal_input():
+    assert your_function(10) == 0
+
+def test_large_input():
+    assert your_function(100) == 0
+
+def test_boundary_input():
+    assert your_function(1000) == 0
+
+def test_edge_case_1():
+    assert your_function(2) == 0
+
+def test_edge_case_2():
+    assert your_function(3) == 0
+
+def test_edge_case_3():
+    assert your_function(4) == 0
+
+def test_edge_case_4():
+    assert your_function(5) == 0
+
+def test_edge_case_5():
+    assert your_function(6) == 0
+
+def test_edge_case_6():
+    assert your_function(7) == 0
+
+def test_edge_case_7():
+    assert your_function(8) == 0
+
+def test_edge_case_8():
+    assert your_function(9) == 0
+
+def test_edge_case_9():
+    assert your_function(10) == 0
+
+def test_edge_case_10():
+    assert your_function(11) == 0
+
+def test_edge_case_11():
+    assert your_function(12) == 0
+
+def test_edge_case_12():
+    assert your_function(13) == 0
+
+def test_edge_case_13():
+    assert your_function(14) == 0
+
+def test_edge_case_14():
+    assert your_function(15) == 0
+
+def test_edge_case_15():
+    assert your_function(16) == 0
+
+subprocess timed out
 Task_ID HumanEval/147:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_147.py`  •  Target function: `get_max_triples`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `get_max_triples(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `get_max_triples`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     A = [i*i - i + 1 for i in range(1,n+1)]
     ans = []
     for i in range(n):
@@ -2332,31 +2455,26 @@ def test_shape_only_example():
     return len(ans)
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_147.py`  •  Target function: `get_max_triples`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `get_max_triples(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `get_max_triples`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
     A = [i*i - i + 1 for i in range(1,n+1)]
     ans = []
     for i in range(n):
@@ -2367,375 +2485,407 @@ def test_shape_only_example():
     return len(ans)
 
 
-### Response
+### Response:
 ```python
 import pytest
+from your_module import your_function  # replace with your actual module and function
 
-def get_max_triples(n):
-    A = [i*i - i + 1 for i in range(1,n+1)]
-    ans = []
-    for i in range(n):
-        for j in range(i+1,n):
-            for k in range(j+1,n):
-                if (A[i]+A[j]+A[k])%3 == 0:
-                    ans += [(A[i],A[j],A[k])]
-    return len(ans)
+def test_empty_input():
+    assert your_function(0) == 0
 
-def test_get_max_triples():
-    assert get_max_triples(0) == 0
-    assert get_max_triples(1) == 0
-    assert get_max_triples(2) == 0
-    assert get_max_triples(3) == 1
-    assert get_max_triples(4) == 4
-    assert get_max_triples(5) == 10
-    assert get_max_triples(6) == 20
-    assert get_max_triples(7) == 35
-    assert get_max_triples(8) == 56
-    assert get_max_triples(9) == 84
-    assert get_max_triples(10) == 120
-    assert get_max_triples(11) == 165
-    assert get_max_triples(12) == 220
-    assert get_max_triples(13) == 286
-    assert get_max_triples(14) == 364
-    assert get_max_triples(15) == 455
-    assert get_max_triples(16) == 560
-    assert get_max_triples(17) == 680
-    assert get_max_triples(18) == 816
-    assert get_max_triples(19) == 969
-    assert get_max_triples(20) == 1140
+def test_negative_input():
+    assert your_function(-5) == 0
+
+def test_none_input():
+    with pytest.raises(TypeError):
+        your_function(None)
+
+def test_zero_input():
+    assert your_function(0) == 0
+
+def test_small_input():
+    assert your_function(5) == 0
+
+def test_normal_input():
+    assert your_function(10) == 0
+
+def test_large_input():
+    assert your_function(100) == 0
+
+def test_boundary_input():
+    assert your_function(1000) == 0
+
+def test_edge_case_1():
+    assert your_function(2) == 0
+
+def test_edge_case_2():
+    assert your_function(3) == 0
+
+def test_edge_case_3():
+    assert your_function(4) == 0
+
+def test_edge_case_4():
+    assert your_function(5) == 0
+
+def test_edge_case_5():
+    assert your_function(6) == 0
+
+def test_edge_case_6():
+    assert your_function(7) == 0
+
+def test_edge_case_7():
+    assert your_function(8) == 0
+
+def test_edge_case_8():
+    assert your_function(9) == 0
+
+def test_edge_case_9():
+    assert your_function(10) == 0
+
+def test_edge_case_10():
+    assert your_function(11) == 0
+
+def test_edge_case_11():
+    assert your_function(12) == 0
+
+def test_edge_case_12():
+    assert your_function(13) == 0
+
+def test_edge_case_13():
+    assert your_function(14) == 0
+
+def test_edge_case_14():
+    assert your_function(15) == 0
+
+def test_edge_case_15():
+    assert your_function(16) == 0
 ```
-This test suite covers a variety of edge cases and normal cases. It also includes a test for a large input to ensure the function can handle large inputs.
 
 coverage:
-11.11111111111111
-test code to visualize output: ...
+0.0
+test code to visualize output: import pytest
+
+def check_last_char(txt):
+    check = txt.split(' ')[-1]
+    return True if len(check) == 1 and (97 <= ord(check.lower()) <= 122) else False
+
+def test_empty_input():
+    assert check_last_char("") == False
+
+def test_zero():
+    assert check_last_char("0") == False
+
+def test_negative_numbers():
+    assert check_last_char("-1") == False
+
+def test_none():
+    assert check_last_char(None) == False
+
+def test_uppercase_letters():
+    assert check_last_char("HELLO WORLD") == False
+
+def test_lowercase_letters():
+    assert check_last_char("hello world") == True
+
+def test_numbers_in_middle():
+    assert check_last_char("hello 123 world") == False
+
+def test_numbers_at_end():
+    assert check_last_char("hello world123") == False
+
+def test_special_characters():
+    assert check_last_char("hello world!@#") == False
+
+def test_multiple_spaces():
+    assert check_last_char("hello  world") == False
+
+def test_boundary_conditions():
+    assert check_last_char("a") == True
+    assert check_last_char("z") == True
+    assert check_last_char("A") == False
+    assert check_last_char("Z") == False
+
+def test_normal_cases():
+    assert check_last_char("hello world") == False
+    assert check_last_char("hello world a") == True
+    assert check_last_char("hello world z") == True
 
 Task_ID HumanEval/134:
 prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_134.py`  •  Target function: `check_if_last_char_is_a_letter`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `check_if_last_char_is_a_letter(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `check_if_last_char_is_a_letter`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
  
     check = txt.split(' ')[-1]
     return True if len(check) == 1 and (97 <= ord(check.lower()) <= 122) else False
 
 
-### Response
+### Response:
 
 response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_134.py`  •  Target function: `check_if_last_char_is_a_letter`.
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
 
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `check_if_last_char_is_a_letter(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
 
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `check_if_last_char_is_a_letter`.)
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
 
-### Code under test
+Only output Python pytest code. No explanations.
+
+Code to test:
  
     check = txt.split(' ')[-1]
     return True if len(check) == 1 and (97 <= ord(check.lower()) <= 122) else False
 
 
-### Response
-```python
-def test_check_if_last_char_is_a_letter():
-    assert check_if_last_char_is_a_letter("Hello W") is True
-    assert check_if_last_char_is_a_letter("Hello World") is False
-    assert check_if_last_char_is_a_letter("1234567890") is False
-    assert check_if_last_char_is_a_letter("") is False
-    assert check_if_last_char_is_a_letter(None) is False
-    assert check_if_last_char_is_a_letter("A") is True
-    assert check_if_last_char_is_a_letter("z") is True
-    assert check_if_last_char_is_a_letter("1") is True
-    assert check_if_last_char_is_a_letter("&") is False
-    assert check_if_last_char_is_a_letter(" ") is False
-```
+### Response:
+Sure, here is a comprehensive pytest test suite for the given code:
 
-### Explanation
-
-This test suite covers a variety of cases:
-
-1) Normal cases: "Hello W", "A", "z", "1" are all single-character strings ending with a letter.
-2) Edge cases: "", None are not considered single-character strings.
-3) Boundary cases: "a", "z" are both single-character strings ending with a letter.
-4) Error path: "&" is not a letter.
-5) Special characters: " " is not a letter.
-
-All these cases are tested to ensure the function `check_if_last_char_is_a_letter` is working as expected.
-
-coverage:
-33.333333333333336
-test code to visualize output: ...
-
-Task_ID HumanEval/64:
-prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_64.py`  •  Target function: `vowels_count`.
-
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `vowels_count(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
-
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `vowels_count`.)
-
-### Code under test
-    vowels = "aeiouAEIOU"
-    n_vowels = sum(c in vowels for c in s)
-    if s[-1] == 'y' or s[-1] == 'Y':
-        n_vowels += 1
-    return n_vowels
-
-
-### Response
-
-response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_64.py`  •  Target function: `vowels_count`.
-
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `vowels_count(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
-
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `vowels_count`.)
-
-### Code under test
-    vowels = "aeiouAEIOU"
-    n_vowels = sum(c in vowels for c in s)
-    if s[-1] == 'y' or s[-1] == 'Y':
-        n_vowels += 1
-    return n_vowels
-
-
-### Response
-```python
-def test_vowels_count():
-    assert vowels_count("Hello") == 2
-    assert vowels_count("Yo") == 1
-    assert vowels_count("") == 0
-    assert vowels_count(None) == 0
-    assert vowels_count("Y") == 1
-    assert vowels_count("y") == 1
-    assert vowels_count("aeiou") == 5
-    assert vowels_count("AEIOU") == 5
-    assert vowels_count("bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ") == 0
-    assert vowels_count("-1234567890") == 0
-    assert vowels_count(" ") == 0
-    assert vowels_count("YoYo") == 2
-    assert vowels_count("yoyo") == 2
-```
-```python
-def test_vowels_count_edge_cases():
-    assert vowels_count("") == 0
-    assert vowels_count(None) == 0
-    assert vowels_count(" ") == 0
-```
-```python
-def test_vowels_count_error_path():
-    with pytest.raises(TypeError):
-        vowels_count(123)
-    with pytest.raises(TypeError):
-        vowels_count(["Hello", "World"])
-```
-```python
-def test_vowels_count_boundary_conditions():
-    assert vowels_count("a"*1000000) == 1000000
-```
-```python
-def test_vowels_count_negative_cases():
-    assert vowels_count("bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ") == 0
-    assert vowels_count("-1234567890") == 0
-```
-```python
-def test_vowels_count_float_cases():
-    assert vowels_count("1.234567890") == 0
-```
-```python
-def test_vowels_count_special_characters():
-    assert vowels_count("@#$%^&*()") == 0
-```
-```python
-def test_vowels_count_mixed_cases():
-    assert vowels_count("Hello, WorldYoYo") == 6
-```
-```python
-def test_vowels_count_large_input():
-    assert vowels_count("a"*1000000) == 1000000
-```
-```python
-def test_vowels_count_negative_large_input():
-    assert vowels_count("b"*1000000) == 0
-```
-```python
-def test_vowels_count_special_characters_large_input():
-    assert vowels_count("@"*1000000) == 0
-```
-```python
-def test_vowels_count_mixed_large_input():
-    assert vowels_count("Hello, WorldYoYo"*500000) == 3000000
-```
-```python
-def test_vowels_count_negative_cases_large_input():
-    assert vowels_count("b"*1000000) == 0
-```
-```python
-def test_vowels_count_negative_cases_special_characters_large_input():
-    assert vowels_count("@"*1000000) == 0
-```
-```python
-def test_vowels_count_negative_cases_mixed_large_input():
-    assert vowels_count("Hello, WorldYoYo"*500000) == 3000000
-```
-```python
-def test_vowels_count_negative_cases_large_input():
-    assert vowels_count("b"*1000000) == 0
-```
-```python
-def test_vowels_count_negative_cases_special_characters_large_input():
-    assert vowels_count("@"*1000000) == 0
-```
-```python
-def test_v
-coverage:
-28.571428571428573
-test code to visualize output: ...
-
-Task_ID HumanEval/143:
-prompt:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_143.py`  •  Target function: `words_in_sentence`.
-
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `words_in_sentence(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
-
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `words_in_sentence`.)
-
-### Code under test
-    new_lst = []
-    for word in sentence.split():
-        flg = 0
-        if len(word) == 1:
-            flg = 1
-        for i in range(2, len(word)):
-            if len(word)%i == 0:
-                flg = 1
-        if flg == 0 or len(word) == 2:
-            new_lst.append(word)
-    return " ".join(new_lst)
-
-
-### Response
-
-response:
-You are an AI programming assistant.
-Write a **pytest** test suite for the Python function defined below.
-Target module filename: `HumanEval_143.py`  •  Target function: `words_in_sentence`.
-
-### Output Requirements
-1) Output **only one** Python code block using triple backticks: ```python ... ``` (nothing before or after).
-2) **Do not import anything** (no `import` or `from` lines). We will add imports.
-3) **Only call `words_in_sentence(...)`** in assertions. Do not call `candidate`, `your_module`, or any other function.
-4) All tests must be functions named `test_*` or use `@pytest.mark.parametrize`.
-5) Prefer `is True` / `is False` for booleans. Use `pytest.approx` (or `math.isclose`) for float comparisons.
-6) Include edge cases (empty/None/negatives), boundary conditions, normal cases, and at least one error path using `with pytest.raises(...)` if applicable.
-7) No file/network I/O, no prints, no sleeps, no randomness (unless you set a seed).
-8) Keep tests minimal and readable (no comments/docstrings in the output).
-
-### Example (structure only; different function)
-```python
-def test_shape_only_example():
-    assert other_func(2) == 4
-```
-(Follow this structure, but target `words_in_sentence`.)
-
-### Code under test
-    new_lst = []
-    for word in sentence.split():
-        flg = 0
-        if len(word) == 1:
-            flg = 1
-        for i in range(2, len(word)):
-            if len(word)%i == 0:
-                flg = 1
-        if flg == 0 or len(word) == 2:
-            new_lst.append(word)
-    return " ".join(new_lst)
-
-
-### Response
 ```python
 import pytest
 
-def words_in_sentence(sentence):
+def check_last_char(txt):
+    check = txt.split(' ')[-1]
+    return True if len(check) == 1 and (97 <= ord(check.lower()) <= 122) else False
+
+def test_empty_input():
+    assert check_last_char("") == False
+
+def test_zero():
+    assert check_last_char("0") == False
+
+def test_negative_numbers():
+    assert check_last_char("-1") == False
+
+def test_none():
+    assert check_last_char(None) == False
+
+def test_uppercase_letters():
+    assert check_last_char("HELLO WORLD") == False
+
+def test_lowercase_letters():
+    assert check_last_char("hello world") == True
+
+def test_numbers_in_middle():
+    assert check_last_char("hello 123 world") == False
+
+def test_numbers_at_end():
+    assert check_last_char("hello world123") == False
+
+def test_special_characters():
+    assert check_last_char("hello world!@#") == False
+
+def test_multiple_spaces():
+    assert check_last_char("hello  world") == False
+
+def test_boundary_conditions():
+    assert check_last_char("a") == True
+    assert check_last_char("z") == True
+    assert check_last_char("A") == False
+    assert check_last_char("Z") == False
+
+def test_normal_cases():
+    assert check_last_char("hello world") == False
+    assert check_last_char("hello world a") == True
+    assert check_last_char("hello world z") == True
+```
+
+This suite covers all execution paths and branches, including edge cases, boundary conditions, and normal cases. It also tests the function with inputs of different types and lengths.
+
+coverage:
+100.0
+test code to visualize output: import pytest
+
+def count_vowels(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s and (s[-1] == 'y' or s[-1] == 'Y'):
+        n_vowels += 1
+    return n_vowels
+
+def test_count_vowels():
+    assert count_vowels('') == 0
+    assert count_vowels('a') == 1
+    assert count_vowels('Y') == 1
+    assert count_vowels('Hello') == 2
+    assert count_vowels('Bye') == 2
+    assert count_vowels('Python') == 2
+    assert count_vowels('Aeiou') == 5
+    assert count_vowels('y') == 1
+    assert count_vowels('Yo') == 1
+    assert count_vowels('123') == 0
+    assert count_vowels('0') == 0
+    assert count_vowels('None') == 1
+    assert count_vowels('negative') == 3
+    assert count_vowels('boundary') == 3
+    assert count_vowels('normal') == 2
+    assert count_vowels('diverse') == 3
+    assert count_vowels('100%') == 1
+
+Task_ID HumanEval/64:
+prompt:
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
+
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
+
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
+
+Only output Python pytest code. No explanations.
+
+Code to test:
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s[-1] == 'y' or s[-1] == 'Y':
+        n_vowels += 1
+    return n_vowels
+
+
+### Response:
+
+response:
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
+
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
+
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
+
+Only output Python pytest code. No explanations.
+
+Code to test:
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s[-1] == 'y' or s[-1] == 'Y':
+        n_vowels += 1
+    return n_vowels
+
+
+### Response:
+```python
+import pytest
+
+def count_vowels(s):
+    vowels = "aeiouAEIOU"
+    n_vowels = sum(c in vowels for c in s)
+    if s and (s[-1] == 'y' or s[-1] == 'Y'):
+        n_vowels += 1
+    return n_vowels
+
+def test_count_vowels():
+    assert count_vowels('') == 0
+    assert count_vowels('a') == 1
+    assert count_vowels('Y') == 1
+    assert count_vowels('Hello') == 2
+    assert count_vowels('Bye') == 2
+    assert count_vowels('Python') == 2
+    assert count_vowels('Aeiou') == 5
+    assert count_vowels('y') == 1
+    assert count_vowels('Yo') == 1
+    assert count_vowels('123') == 0
+    assert count_vowels('0') == 0
+    assert count_vowels('None') == 1
+    assert count_vowels('negative') == 3
+    assert count_vowels('boundary') == 3
+    assert count_vowels('normal') == 2
+    assert count_vowels('diverse') == 3
+    assert count_vowels('100%') == 1
+```
+
+coverage:
+71.42857142857143
+test code to visualize output: import pytest
+
+def test_single_letter_words():
+    assert process_words("a") == ""
+
+def test_two_letter_words():
+    assert process_words("hi") == "hi"
+
+def test_multiple_letter_words():
+    assert process_words("hello world") == "hello"
+
+def test_empty_string():
+    assert process_words("") == ""
+
+def test_none():
+    assert process_words(None) == ""
+
+def test_zero_length_words():
+    assert process_words("aabbcc") == ""
+
+def test_negative_length_words():
+    assert process_words("abcd") == "abcd"
+
+def test_negative_numbers():
+    assert process_words("1234567890") == "1234567890"
+
+def test_boundary_conditions():
+    assert process_words("abcd abcdef") == "abcd"
+
+def test_normal_cases():
+    assert process_words("hello world this is a test") == "hello world this is a"
+
+def test_edge_cases():
+    assert process_words("a b c d e") == "a b c d e"
+
+def test_all_execution_paths():
+    assert process_words("ab abc abcd") == "ab"
+
+Task_ID HumanEval/143:
+prompt:
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
+
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
+
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
+
+Only output Python pytest code. No explanations.
+
+Code to test:
     new_lst = []
     for word in sentence.split():
         flg = 0
@@ -2748,28 +2898,80 @@ def words_in_sentence(sentence):
             new_lst.append(word)
     return " ".join(new_lst)
 
-def test_words_in_sentence():
-    assert words_in_sentence("Hello world") == "Hello world"
-    assert words_in_sentence("Python is fun") == "Python is"
-    assert words_in_sentence("This is a test") == "This is a"
-    assert words_in_sentence("") == ""
-    assert words_in_sentence(None) == None
-    with pytest.raises(TypeError):
-        words_in_sentence(123)
 
-def test_words_in_sentence_edge_cases():
-    assert words_in_sentence("a") == ""
-    assert words_in_sentence("aa") == "aa"
-    assert words_in_sentence("aaa") == "aaa"
-    assert words_in_sentence("aaaa") == "aaaa"
-    assert words_in_sentence("aaaaa") == "aaaa"
-    assert words_in_sentence("aaaaaa") == "aaaaaa"
-    assert words_in_sentence("aaaaaaa") == "aaaaaaa"
-    assert words_in_sentence("aaaaaaaa") == "aaaaaaaa"
-    assert words_in_sentence("aaaaaaaaa") == "aaaaaaaa"
-    assert words_in_sentence("aaaaaaaaaa") == "aaaaaaaaaa"
+### Response:
+
+response:
+You are an AI programming assistant, utilizing the DeepSeek Coder model, developed by DeepSeek Company, and you only answer questions related to computer science. For politically sensitive questions, security and privacy issues, and other non-computer science questions, you will refuse to answer.
+
+### Instruction:
+Generate a comprehensive pytest test suite for the following code.
+
+Requirements:
+1. Generate at least 10-15 diverse test cases
+2. Cover ALL execution paths and branches
+3. Test edge cases: empty inputs, zero, negative numbers, None
+4. Test boundary conditions
+5. Test normal cases
+6. Use 'test_' prefix for all test functions
+7. Aim for 100% code coverage
+
+Only output Python pytest code. No explanations.
+
+Code to test:
+    new_lst = []
+    for word in sentence.split():
+        flg = 0
+        if len(word) == 1:
+            flg = 1
+        for i in range(2, len(word)):
+            if len(word)%i == 0:
+                flg = 1
+        if flg == 0 or len(word) == 2:
+            new_lst.append(word)
+    return " ".join(new_lst)
+
+
+### Response:
+```python
+import pytest
+
+def test_single_letter_words():
+    assert process_words("a") == ""
+
+def test_two_letter_words():
+    assert process_words("hi") == "hi"
+
+def test_multiple_letter_words():
+    assert process_words("hello world") == "hello"
+
+def test_empty_string():
+    assert process_words("") == ""
+
+def test_none():
+    assert process_words(None) == ""
+
+def test_zero_length_words():
+    assert process_words("aabbcc") == ""
+
+def test_negative_length_words():
+    assert process_words("abcd") == "abcd"
+
+def test_negative_numbers():
+    assert process_words("1234567890") == "1234567890"
+
+def test_boundary_conditions():
+    assert process_words("abcd abcdef") == "abcd"
+
+def test_normal_cases():
+    assert process_words("hello world this is a test") == "hello world this is a"
+
+def test_edge_cases():
+    assert process_words("a b c d e") == "a b c d e"
+
+def test_all_execution_paths():
+    assert process_words("ab abc abcd") == "ab"
 ```
-This test suite includes a variety of test cases to cover different scenarios. It tests the function with normal sentences, empty strings, None, and a TypeError. It also tests edge cases where the word length is 1, 2, 3, 4, 5, 6, 7, 8, 9, and 10.
 
 coverage:
-8.333333333333334
+100.0
