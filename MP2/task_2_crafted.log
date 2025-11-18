@@ -9,7 +9,11 @@ W0000 00:00:1761107056.446122   55519 computation_placer.cc:177] computation pla
 2025-10-22 04:24:16.451034: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
 Working with deepseek-ai/deepseek-coder-6.7b-instruct prompt type False...
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:44<00:44, 44.02s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 27.36s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 29.86s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:44<00:44, 44.02s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 27.36s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:59<00:00, 29.86s/it]
 test code to visualize output: import pytest
 
 def test_empty_dict():
